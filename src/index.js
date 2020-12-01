@@ -16,7 +16,7 @@ let currentGame
 
 //aside peekaboo
 function asidePeekaboo() {
-    const aside = document.querySelector("aside");
+    const aside = document.querySelector("#profile");
     if (aside.style.display === "none") {
       aside.style.display = "block";
     } else if (currentUser === null) {

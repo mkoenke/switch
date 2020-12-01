@@ -33,4 +33,4 @@ const sampleGameInfo = {
 }
 
 renderTimerForGame(sampleGameInfo)
-startTimer()
+// startTimer()
