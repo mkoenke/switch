@@ -11,6 +11,8 @@ const aside = document.querySelector("aside")
 
 let allUsers
 let currentUser = null
+let allGames
+let currentGame
 
 //aside peekaboo
 function asidePeekaboo() {
@@ -38,6 +40,9 @@ function handleNavBarClicks(event){
         currentUser = null
         asidePeekaboo()
         console.log(currentUser)
+    } else if (event.target.id === "memory" && currentUser){
+        // loadGame("memory")
+        console.log(event.target)
     }
 }
 
@@ -105,14 +110,13 @@ function handleForm(event){
         allUsers.forEach(function findCurrentUser(user){
             if (user.username === userObj.username && user.pin === userObj.pin){
                 currentUser = user
-                renderUserProfile(currentUser)
                 asidePeekaboo()
+                renderUserProfile(currentUser)
                  modal.style.display = "none"
     
-            } // else {
-                // alert("Please try again!")
-                // modal.style.display = "none"
-                
+            } //else {
+            //     alert("Please try again!")
+            //     modal.style.display = "none"
             // }
         })
        event.target.reset() 
@@ -147,6 +151,12 @@ function initialize(){
     .then(usersArray => {
         allUsers = usersArray
         console.log(usersArray)
+    })
+    fetch(`${URL}/games`)
+    .then(r => r.json())
+    .then(gamesArray => {
+        allGames = gamesArray
+        console.log(gamesArray)
     })
 }
 initialize()

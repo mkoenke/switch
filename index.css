@@ -65,7 +65,7 @@ main {
 aside {
     grid-area: profile;
     text-align: center;
-    display: none;
+    
 }
 
 aside h1 {

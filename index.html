@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./src/index.js" defer></script>
+    <script src="./src/memory.js" defer></script>
     <script src="./src/userProfile.js" defer></script>
     <link rel="stylesheet" href="index.css" />
     <title>Document</title>
@@ -14,7 +15,8 @@
     <main>
         <!-- Nav Bar  -->
         <div class="topnav">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wisegeek.com%2Fdice-dominoes-and-game-pieces.jpg&f=1&nofb=1" alt="">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wisegeek.com%2Fdice-dominoes-and-game-pieces.jpg&f=1&nofb=1"
+                alt="">
             <div id="logout">Logout</div>
             <div id="login">Login</div>
             <div id="signup">Sign Up</div>
@@ -22,11 +24,11 @@
             <div></div>
             <div></div>
             <div></div>
-            <div>Memory</div>
-           
+            <div id="memory">Memory</div>
+
         </div>
         <!-- User Profile -->
-        <aside id="profile" >
+        <aside id="profile" style="display:none;">
             <ul>
                 <h2>Profile</h2>
 
@@ -39,92 +41,94 @@
 
         <!-- Game Display Area -->
         <section>
+            <div id="timer"></div>
             <div id="game-display"></div>
+        </section>
 
 
+        <!-- Button to open the modal login form -->
 
-            <!-- Button to open the modal login form -->
+        <!-- The Modal -->
+        <div id="modal" class="modal">
+            <!-- <span onclick="document.getElementById('modal').style.display='none' class="close" title="Close Modal">&times;</span> -->
 
-            <!-- The Modal -->
-            <div id="modal" class="modal">
-                <!-- <span onclick="document.getElementById('modal').style.display='none' class="close" title="Close Modal">&times;</span> -->
+            <!-- Modal Content -->
+            <form id="login-form" class="modal-content animate" action="/action_page.php">
 
-                <!-- Modal Content -->
-                <form id="login-form" class="modal-content animate" action="/action_page.php">
+                <div class="container">
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="username" required><br>
 
-                    <div class="container">
-                        <label for="username"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="username" required><br>
+                    <label for="pin"><b>Pin</b></label>
+                    <input type="Pin" placeholder="Enter Pin" name="pin" required><br>
 
-                        <label for="pin"><b>Pin</b></label>
-                        <input type="Pin" placeholder="Enter Pin" name="pin" required><br>
-
-                        <button type="submit">Login</button><br>
-                        <label>
+                    <button type="submit">Login</button><br>
+                    <label>
                         <input type="checkbox" checked="checked" name="remember"> Remember me
-                        </label><br>
-                        <!-- </div> -->
+                    </label><br>
+                    <!-- </div> -->
 
-                        <!-- <div class="container" style="background-color:#9cf163"> -->
-                        <button type="button" onclick="document.getElementById('modal').style.display='none'" class="cancelbtn">Cancel</button><br>
-                        <span class="psw">Forgot Pin?</span>
-                    </div>
-                </form>
-            </div>
-        
-    
-    
-    <!-- Button to open the modal login form -->
+                    <!-- <div class="container" style="background-color:#9cf163"> -->
+                    <button type="button" onclick="document.getElementById('modal').style.display='none'"
+                        class="cancelbtn">Cancel</button><br>
+                    <span class="psw">Forgot Pin?</span>
+                </div>
+            </form>
+        </div>
 
-<!-- The Login Modal -->
-<div id="modal" class="modal">
 
-  <!-- Modal Content -->
-  <form id="login-form" class="modal-content animate">
 
-    <div class="container">
-      <label for="username"><b>Username</b></label>
-      <input type="text" name="username" placeholder="Enter Username" value=""  required><br>
+        <!-- Button to open the modal login form -->
 
-      <label for="pin"><b>Pin</b></label>
-      <input type="Pin" name="pin" placeholder="Enter Pin" value=""  required><br>
+        <!-- The Login Modal -->
+        <div id="modal" class="modal">
 
-      <button id="submitbtn">Login</button><br>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label><br>
-    
-      <button type="button" class="cancelbtn">Cancel</button><br>
-      <span class="psw">Forgot Pin?</span>
-    </div>
-  </form>
-</div>
+            <!-- Modal Content -->
+            <form id="login-form" class="modal-content animate">
 
-<!-- The Sign Up Modal -->
-<div id="signupmodal" class="modal">
+                <div class="container">
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" name="username" placeholder="Enter Username" value="" required><br>
 
-    <!-- Modal Content -->
-    <form id="signup-form" class="modal-content animate">
-  
-      <div class="container">
-        <label for="username"><b>Username</b></label>
-        <input type="text" name="username" placeholder="Enter Username" value=""  required><br>
-  
-        <label for="pin"><b>Pin</b></label>
-        <input type="Pin" name="pin" placeholder="Enter Pin" value=""  required><br>
+                    <label for="pin"><b>Pin</b></label>
+                    <input type="Pin" name="pin" placeholder="Enter Pin" value="" required><br>
 
-        <label for="avatar"><b>Avatar</b></label>
-        <input type="avatar" name="avatar" placeholder="Image Url" value=""  ><br>
-  
-        <button id="submitbtn">Sign Up</button><br>
-        
-      
-        <button type="button" class="cancelbtn">Cancel</button><br>
-        
-      </div>
-    </form>
-  </div>
-          </section>
+                    <button id="submitbtn">Login</button><br>
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label><br>
+
+                    <button type="button" class="cancelbtn">Cancel</button><br>
+                    <span class="psw">Forgot Pin?</span>
+                </div>
+            </form>
+        </div>
+
+        <!-- The Sign Up Modal -->
+        <div id="signupmodal" class="modal">
+
+            <!-- Modal Content -->
+            <form id="signup-form" class="modal-content animate">
+
+                <div class="container">
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" name="username" placeholder="Enter Username" value="" required><br>
+
+                    <label for="pin"><b>Pin</b></label>
+                    <input type="Pin" name="pin" placeholder="Enter Pin" value="" required><br>
+
+                    <label for="avatar"><b>Avatar</b></label>
+                    <input type="avatar" name="avatar" placeholder="Image Url" value=""><br>
+
+                    <button id="submitbtn">Sign Up</button><br>
+
+
+                    <button type="button" class="cancelbtn">Cancel</button><br>
+
+                </div>
+            </form>
+        </div>
+
     </main>
 </body>
 
