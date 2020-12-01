@@ -18,29 +18,29 @@ let currentGame
 function asidePeekaboo() {
     const aside = document.querySelector("#profile");
     if (aside.style.display === "none") {
-      aside.style.display = "block";
+        aside.style.display = "block";
     } else if (currentUser === null) {
-      aside.style.display = "none";
+        aside.style.display = "none";
     }
-  }
- 
+}
+
 
 //delegation on nav bar
 
 navBar.addEventListener("click", handleNavBarClicks)
 
-function handleNavBarClicks(event){
+function handleNavBarClicks(event) {
     // console.log(event.target)
-    if (event.target.id === "login" && currentUser === null){
-        document.getElementById('modal').style.display='block'
-    } else if (event.target.id === "signup" && currentUser === null){
+    if (event.target.id === "login" && currentUser === null) {
+        document.getElementById('modal').style.display = 'block'
+    } else if (event.target.id === "signup" && currentUser === null) {
         console.log(event.target)
-        document.getElementById('signupmodal').style.display='block'
-    } else if (event.target.id === "logout" && currentUser){
+        document.getElementById('signupmodal').style.display = 'block'
+    } else if (event.target.id === "logout" && currentUser) {
         currentUser = null
         asidePeekaboo()
         console.log(currentUser)
-    } else if (event.target.id === "memory" && currentUser){
+    } else if (event.target.id === "memory" && currentUser) {
         // loadGame("memory")
         console.log(event.target)
     }
@@ -53,42 +53,52 @@ const signupCancelBtn = signupModal.querySelector(".cancelbtn")
 
 signupCancelBtn.addEventListener("click", closeSignupForm)
 
-function closeSignupForm(){
-    signupModal.style.display='none'
+function closeSignupForm() {
+    signupModal.style.display = 'none'
 }
 
 signupForm.addEventListener("submit", handleSignup)
 
-function handleSignup(event){
+function handleSignup(event) {
     event.preventDefault()
-    const newUserObj = {
-        username: event.target.username.value,
-        pin: parseInt(event.target.pin.value),
-        total_points: 0
-    }
-    console.log(newUserObj)
-    fetch(`${URL}/users`, {
-    method: 'POST', 
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(newUserObj),
-    })
-    .then(response => response.json())
-    .then(returnedUserObj => {
-        currentUser = returnedUserObj
-        renderUserProfile(currentUser)
-        asidePeekaboo()
-        event.target.reset()
-        signupModal.style.display = "none"
-        console.log('Success New User:', returnedUserObj);
-    })
-    .catch((error) => {
-        // alert(error)
-    console.error('Error:', error);
-    });
 
-    
+    const usernames = []
+    allUsers.forEach(user => {
+        usernames.push(user.username)
+    })
+    console.log(usernames)
+    if (!usernames.includes(event.target.username.value)) {
+        const newUserObj = {
+            username: event.target.username.value,
+            pin: parseInt(event.target.pin.value),
+            total_points: 0
+        }
+        console.log(newUserObj)
+        fetch(`${URL}/users`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newUserObj),
+        })
+            .then(response => response.json())
+            .then(returnedUserObj => {
+                currentUser = returnedUserObj
+                renderUserProfile(currentUser)
+                asidePeekaboo()
+                event.target.reset()
+                signupModal.style.display = "none"
+                console.log('Success New User:', returnedUserObj);
+            })
+            .catch((error) => {
+                // alert(error)
+                console.error('Error:', error);
+            });
+        } else {
+            alert("you need a uniqe username!")
+            event.target.reset()
+    }
+
 }
 
 const modal = document.getElementById('modal')
@@ -99,45 +109,54 @@ const loginForm = modal.querySelector("form")
 //submit on login form
 loginForm.addEventListener("submit", handleForm)
 
-function handleForm(event){
+function handleForm(event) {
 
     event.preventDefault()
-        const userObj = {
-            username: event.target.username.value,
-            pin: parseInt(event.target.pin.value)
+
+
+    const userObj = {
+        username: event.target.username.value,
+        pin: parseInt(event.target.pin.value)
+    }
+    console.log(userObj)
+    let checkedUsers = 0
+    allUsers.forEach(function findCurrentUser(user) {
+        if (user.username === userObj.username && user.pin === userObj.pin) {
+            currentUser = user
+            asidePeekaboo()
+            renderUserProfile(currentUser)
+            modal.style.display = "none"
+
+        } else {
+            checkedUsers++
         }
-        console.log(userObj)
-        allUsers.forEach(function findCurrentUser(user){
-            if (user.username === userObj.username && user.pin === userObj.pin){
-                currentUser = user
-                asidePeekaboo()
-                renderUserProfile(currentUser)
-                 modal.style.display = "none"
-    
-            } //else {
-            //     alert("Please try again!")
-            //     modal.style.display = "none"
-            // }
-        })
-       event.target.reset() 
-      
+    })
+    if (checkedUsers === allUsers.length){
+        alert("Username and Pin don't match")
+        event.target.reset()
+    }
+    event.target.reset()
+
+
 }
+      
+
 
 //cancel button on login form
 cancelBtn.addEventListener("click", closeLoginForm)
 
-function closeLoginForm(){
-    modal.style.display='none'
+function closeLoginForm() {
+    modal.style.display = 'none'
 }
 
 // When the user clicks anywhere outside of the modal, close it
 document.addEventListener("click", outsideFormClick)
 
-function outsideFormClick(event){
+function outsideFormClick(event) {
     // console.log(event.target)
     if (event.target === modal) {
         modal.style.display = "none"
-    } else if (event.target === signupModal){
+    } else if (event.target === signupModal) {
         signupModal.style.display = "none"
     }
 }
@@ -145,18 +164,18 @@ function outsideFormClick(event){
 
 ///initialize
 
-function initialize(){
+function initialize() {
     fetch(`${URL}/users`)
-    .then(r => r.json())
-    .then(usersArray => {
-        allUsers = usersArray
-        console.log(usersArray)
-    })
+        .then(r => r.json())
+        .then(usersArray => {
+            allUsers = usersArray
+            console.log(usersArray)
+        })
     fetch(`${URL}/games`)
-    .then(r => r.json())
-    .then(gamesArray => {
-        allGames = gamesArray
-        console.log(gamesArray)
-    })
+        .then(r => r.json())
+        .then(gamesArray => {
+            allGames = gamesArray
+            console.log(gamesArray)
+        })
 }
 initialize()
