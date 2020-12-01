@@ -4,8 +4,9 @@ const username = profile.querySelector("#username")
 const points = profile.querySelector("#points")
 
 const renderUserProfile = (userObj) => {
-    username.textContent = " " + userObj.username
-    points.textContent = " " + userObj.total_points
+    username.textContent = `Username: ${userObj.username}`
+    points.textContent = `Points: ${userObj.totalPoints}`
+    console.log(username)
 }
 
 const sampleUser = {
