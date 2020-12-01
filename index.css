@@ -81,6 +81,7 @@ aside {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     padding-top: 60px;
+    text-align: center;
   }
   
   /* Modal Content/Box */
