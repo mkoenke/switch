@@ -23,19 +23,30 @@ main {
 
 /* Style the links inside the navigation bar */
 
-.topnav div {
-    float: left;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav div {
+    
+    float: right;
     color: #e9e8f0;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-size: 17px;
-}
+    font-size: 20px;
+  }
 
-
-/* Change the color of links on hover */
-
-.topnav div:hover {
+  .topnav img {
+    display: block;
+    float: left;
+    width: 120px; 
+    height: 100px; 
+    padding-left: 20px;
+    
+  }
+  
+  /* Change the color of links on hover */
+  .topnav div:hover {
     background-color: #ddd;
     color: black;
 }
@@ -148,10 +159,10 @@ aside li.item:hover {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.75);
-}
-
-#login-form {
-    background-color: rgb(255, 237, 194);
+  }
+  
+  #login-form {
+    background-color: rgb(64, 140, 184);
     margin-top: 20vh;
     width: 600px;
     margin: 20vh auto 0;

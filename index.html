@@ -14,10 +14,17 @@
     <main>
         <!-- Nav Bar  -->
         <div class="topnav">
-            <div>Logo</div>
-            <div>Memory</div>
-            <div>About</div>
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wisegeek.com%2Fdice-dominoes-and-game-pieces.jpg&f=1&nofb=1" alt="">
+            <br>
+            <div id="logout">Logout</div>
             <div id="login">Login</div>
+            <div id="signup">Sign Up</div>
+            <div>About</div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div>Memory</div>
+           
         </div>
         <!-- User Profile -->
         <aside id="profile">
@@ -65,7 +72,60 @@
                     </div>
                 </form>
             </div>
-        </section>
+        
+    
+    
+    <!-- Button to open the modal login form -->
+
+<!-- The Login Modal -->
+<div id="modal" class="modal">
+
+  <!-- Modal Content -->
+  <form id="login-form" class="modal-content animate">
+
+    <div class="container">
+      <label for="username"><b>Username</b></label>
+      <input type="text" name="username" placeholder="Enter Username" value=""  required><br>
+
+      <label for="pin"><b>Pin</b></label>
+      <input type="Pin" name="pin" placeholder="Enter Pin" value=""  required><br>
+
+      <button id="submitbtn">Login</button><br>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label><br>
+    
+      <button type="button" class="cancelbtn">Cancel</button><br>
+      <span class="psw">Forgot Pin?</span>
+    </div>
+  </form>
+</div>
+
+<!-- The Sign Up Modal -->
+<div id="signupmodal" class="modal">
+
+    <!-- Modal Content -->
+    <form id="signup-form" class="modal-content animate">
+  
+      <div class="container">
+        <label for="username"><b>Username</b></label>
+        <input type="text" name="username" placeholder="Enter Username" value=""  required><br>
+  
+        <label for="pin"><b>Pin</b></label>
+        <input type="Pin" name="pin" placeholder="Enter Pin" value=""  required><br>
+
+        <label for="avatar"><b>Avatar</b></label>
+        <input type="avatar" name="avatar" placeholder="Image Url" value=""  ><br>
+  
+        <button id="submitbtn">Sign Up</button><br>
+        
+      
+        <button type="button" class="cancelbtn">Cancel</button><br>
+        
+      </div>
+    </form>
+  </div>
+          </section>
     </main>
 </body>
 
