@@ -3,10 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./src/index.js"></script>
+    <script src="./src/index.js" defer></script>
+    <link rel="stylesheet" href="index.css" />
     <title>Document</title>
 </head>
 <body>
+    <main>
+        <!-- Nav Bar  -->
+        <div class="topnav">
+            <div>Logo</div>
+            <div>Memory</div>
+            <div>About</div>
+            <div id="login">Login</div>
+        </div>
+       <!-- User Profile -->
+        <aside> 
+            <ul class="side-list">
+                <h2>Username</h2>
+
+                <li class="item">User Profile</li>
+                <li class="item">Points</li>
+
+            </ul>
+        
+        </aside>
+
+        <!-- Game Display Area -->
+        <section>
+            <div id="game-display">
+
+
+            </div>
+        
     
+    
+    <!-- Button to open the modal login form -->
+
+<!-- The Modal -->
+<div id="modal" class="modal">
+  <!-- <span onclick="document.getElementById('modal').style.display='none'"
+class="close" title="Close Modal">&times;</span> -->
+
+  <!-- Modal Content -->
+  <form id="login-form" class="modal-content animate" action="/action_page.php">
+
+    <div class="container">
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" required>
+
+      <label for="pin"><b>Pin</b></label>
+      <input type="Pin" placeholder="Enter Pin" name="pin" required>
+
+      <button type="submit">Login</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    <!-- </div> -->
+
+    <!-- <div class="container" style="background-color:#9cf163"> -->
+      <button type="button" onclick="document.getElementById('modal').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot Pin?</span>
+    </div>
+  </form>
+</div>
+    </main>
 </body>
 </html>

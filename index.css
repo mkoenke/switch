@@ -1,0 +1,152 @@
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav div {
+    float: left;
+    color: #e9e8f0;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav div:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .topnav div.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+/* Aside */
+
+aside {
+    grid-area: nav;
+  }
+  
+  aside h1 {
+    margin: 1rem;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    font-size: 2em;
+  }
+  
+  aside h2 {
+    margin: 1rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid #000;
+  }
+  
+  aside .item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+    transition: background-color .3s ease;
+    line-height: 1.5rem;
+    font-weight: bold;
+  }
+  
+  aside ul {
+    width: 100%;
+    padding: 0;
+  }
+  
+  aside li.item:hover {
+    background-color: #929290;
+  }
+  
+ 
+
+/* The Modal (background) */
+.modal {
+    display: none; 
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5px auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    /* Position it in the top right corner outside of the modal */
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+
+  #modal {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+  
+  #login-form {
+    background-color: rgb(255, 237, 194);
+    margin-top: 20vh;
+    width: 600px;
+    margin: 20vh auto 0;
+  }
+  
+
+
+  
+  /* Add Zoom Animation */
+  .animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+  }
+  
+  @-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+  }
+  
+  @keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+  }
+
+
+  /* Game Detail */
+  section {
+    grid-area: content;
+    padding: 2rem;
+    background-color: rgb(112, 199, 236);
+  }
+  
+  #detail {
+    max-width: 80%;
+  }
