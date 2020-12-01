@@ -83,6 +83,7 @@ function handleForm(event){
                 // console.log(user)
                 // console.log(userObj)
                 currentUser = user
+                renderUserProfile(currentUser)
             }
         })
        event.target.reset() 

@@ -29,4 +29,4 @@ const sampleUser = {
     ]
   }
 
-  renderUserProfile(sampleUser)
+  
