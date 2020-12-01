@@ -6,6 +6,7 @@ URL = "http://localhost:3000"
 const navBar = document.querySelector(".topnav")
 const loginDiv = document.querySelector("#login")
 const aside = document.querySelector("aside")
+const playerProfile = document.querySelector("#profile");
 
 //application state
 
@@ -15,12 +16,11 @@ let allGames
 let currentGame
 
 //aside peekaboo
-function asidePeekaboo() {
-    const aside = document.querySelector("#profile");
-    if (aside.style.display === "none") {
-        aside.style.display = "block";
+function elementPeekaboo(element) {
+    if (element.style.display === "none") {
+        element.style.display = "block";
     } else if (currentUser === null) {
-        aside.style.display = "none";
+        element.style.display = "none";
     }
 }
 
@@ -38,7 +38,7 @@ function handleNavBarClicks(event) {
         document.getElementById('signupmodal').style.display = 'block'
     } else if (event.target.id === "logout" && currentUser) {
         currentUser = null
-        asidePeekaboo()
+        elementPeekaboo(playerProfile)
         console.log(currentUser)
     } else if (event.target.id === "memory" && currentUser) {
         // loadGame("memory")
@@ -85,7 +85,7 @@ function handleSignup(event) {
             .then(returnedUserObj => {
                 currentUser = returnedUserObj
                 renderUserProfile(currentUser)
-                asidePeekaboo()
+                elementPeekaboo(playerProfile)
                 event.target.reset()
                 signupModal.style.display = "none"
                 console.log('Success New User:', returnedUserObj);
@@ -123,7 +123,7 @@ function handleForm(event) {
     allUsers.forEach(function findCurrentUser(user) {
         if (user.username === userObj.username && user.pin === userObj.pin) {
             currentUser = user
-            asidePeekaboo()
+            elementPeekaboo(playerProfile)
             renderUserProfile(currentUser)
             modal.style.display = "none"
 
