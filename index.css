@@ -6,11 +6,21 @@ body {
 main {
     display: grid;
     grid-template-areas: "nav nav nav nav" "profile content content content" "profile content content content" "profile content content content";
-    grid-template-columns: 300px 1fr;
-    grid-template-rows: [row1-start] 48px [row1-end] auto [last-line];;
+    grid-template-columns: 300px auto auto auto;
+    grid-template-rows: [row1-start] 48px [row1-end] auto [last-line];
     height: 100vh;
 }
 
+
+/* timer */
+
+#timer {
+    background-color: white;
+    grid-area: content;
+    width: fit-content;
+    padding: 3px;
+    border: 1px solid turquoise;
+}
 
 /* Add a black background color to the top navigation */
 
