@@ -2,23 +2,23 @@ let clickedCard
 let preventClick = false
 let correctCombos = 0
 
-const colors = [
-    "red", "orange", "yellow", "green", "blue", "indigo", "purple", "cyan", "lightblue", "redorange", "pink", "salmon", "seagreen", "slategrey", "teal", "blueviolet", "goldenrod", "royalblue"
-]
-const cards = document.querySelectorAll(".card")
-for (let color of colors){
-    const cardAIndex = parseInt(Math.random() * colors.length)
-    const cardA = cards[cardAIndex]
-    cards.splice(cardAIndex, 1)
-    cardA.className += ` ${color}`
-    cardA.setAttribute("data-color", color)
+// const colors = [
+//     "red", "orange", "yellow", "green", "blue", "indigo", "purple", "cyan", "lightblue", "redorange", "pink", "salmon", "seagreen", "slategrey", "teal", "blueviolet", "goldenrod", "royalblue",
+// ]
+// const cards = [...document.querySelectorAll(".card")]
+// for (let color of colors){
+//     const cardAIndex = parseInt(Math.random() * cards.length)
+//     const cardA = cards[cardAIndex]
+//     colors.splice(cardAIndex, 1)
+//     cardA.className += ` ${color}`
+//     cardA.setAttribute("data-color", color)
 
-    const cardBIndex = parseInt(Math.random() * colors.length)
-    const cardB = cards[cardBIndex]
-    cards.splice(cardBIndex, 1)
-    cardB.className += ` ${color}`
-    cardB.setAttribute("data-color", color)
-}
+//     const cardBIndex = parseInt(Math.random() * cards.length)
+//     const cardB = cards[cardBIndex]
+//     colors.splice(cardBIndex, 1)
+//     cardB.className += ` ${color}`
+//     cardB.setAttribute("data-color", color)
+// }
 
 
 
