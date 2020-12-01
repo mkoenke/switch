@@ -19,6 +19,7 @@ const startTimer = () => {
         }
 
         timer.textContent = parseFloat(timer.textContent).toPrecision(decimal)
+        
         if (parseFloat(timer.textContent) === 0){
             clearInterval(interval)
         }
@@ -29,7 +30,7 @@ const startTimer = () => {
 const sampleGameInfo = {
     "id": 1,
     "title": "memory",
-    "time": 15
+    "time": 120
 }
 
 renderTimerForGame(sampleGameInfo)
