@@ -106,8 +106,9 @@ aside .item {
 aside ul {
     width: 100%;
     padding: 0;
-    box-shadow: inset 0px 0px 0px 3px turquoise;
+    box-shadow: inset 0px 0px 9px 3px turquoise;
     box-sizing: border-box;
+    border-radius: 7%;
 }
 
 aside li.item:hover {
