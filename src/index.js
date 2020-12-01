@@ -31,6 +31,14 @@ function handleNavBarClicks(event){
 
 const signupModal = document.getElementById('signupmodal')
 const signupForm = signupModal.querySelector("form")
+const signupCancelBtn = signupModal.querySelector(".cancelbtn")
+
+
+signupCancelBtn.addEventListener("click", closeSignupForm)
+
+function closeSignupForm(){
+    signupModal.style.display='none'
+}
 
 signupForm.addEventListener("submit", handleSignup)
 
@@ -51,19 +59,24 @@ function handleSignup(event){
     })
     .then(response => response.json())
     .then(returnedUserObj => {
-    console.log('Success New User:', returnedUserObj);
+        currentUser = returnedUserObj
+        renderUserProfile(currentUser)
+        event.target.reset()
+        signupModal.style.display = "none"
+        console.log('Success New User:', returnedUserObj);
     })
     .catch((error) => {
+        // alert(error)
     console.error('Error:', error);
     });
 
-    event.target.reset()
+    
 }
 
 const modal = document.getElementById('modal')
 const cancelBtn = modal.querySelector(".cancelbtn")
 const loginForm = modal.querySelector("form")
-const submit = modal.querySelector("#submitbtn")
+// const submit = modal.querySelector("#submitbtn")
 
 //submit on login form
 loginForm.addEventListener("submit", handleForm)
@@ -71,8 +84,6 @@ loginForm.addEventListener("submit", handleForm)
 function handleForm(event){
 
     event.preventDefault()
-    // console.log(event.target)
-    
         const userObj = {
             username: event.target.username.value,
             pin: parseInt(event.target.pin.value)
@@ -80,14 +91,18 @@ function handleForm(event){
         console.log(userObj)
         allUsers.forEach(function findCurrentUser(user){
             if (user.username === userObj.username && user.pin === userObj.pin){
-                // console.log(user)
-                // console.log(userObj)
                 currentUser = user
                 renderUserProfile(currentUser)
-            }
+                 modal.style.display = "none"
+    
+            } // else {
+                // alert("Please try again!")
+                // modal.style.display = "none"
+                
+            // }
         })
        event.target.reset() 
-    
+      
 }
 
 //cancel button on login form
@@ -102,9 +117,11 @@ document.addEventListener("click", outsideFormClick)
 
 function outsideFormClick(event){
     // console.log(event.target)
-    if (event.target == modal) {
+    if (event.target === modal) {
         modal.style.display = "none"
-      }
+    } else if (event.target === signupModal){
+        signupModal.style.display = "none"
+    }
 }
 
 

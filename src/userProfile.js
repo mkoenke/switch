@@ -5,7 +5,7 @@ const points = profile.querySelector("#points")
 
 const renderUserProfile = (userObj) => {
     username.textContent = " " + userObj.username
-    points.textContent = " " + userObj.totalPoints
+    points.textContent = " " + userObj.total_points
 }
 
 const sampleUser = {

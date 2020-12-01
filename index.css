@@ -166,8 +166,16 @@ aside li.item:hover {
     margin-top: 20vh;
     width: 600px;
     margin: 20vh auto 0;
+    padding: 20px;
 }
 
+#signup-form {
+    background-color: rgb(64, 140, 184);
+    margin-top: 20vh;
+    width: 600px;
+    margin: 20vh auto 0;
+    padding: 20px;
+}
 
 /* Add Zoom Animation */
 
