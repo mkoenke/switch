@@ -5,11 +5,22 @@ URL = "http://localhost:3000"
 //dom elements
 const navBar = document.querySelector(".topnav")
 const loginDiv = document.querySelector("#login")
+const aside = document.querySelector("aside")
 
 //application state
 
 let allUsers
-let currentUser
+let currentUser = null
+
+//aside peekaboo
+function asidePeekaboo() {
+    const aside = document.querySelector("aside");
+    if (aside.style.display === "none") {
+      aside.style.display = "block";
+    } else if (currentUser === null) {
+      aside.style.display = "none";
+    }
+  }
  
 
 //delegation on nav bar
@@ -18,13 +29,14 @@ navBar.addEventListener("click", handleNavBarClicks)
 
 function handleNavBarClicks(event){
     // console.log(event.target)
-    if (event.target.id === "login"){
+    if (event.target.id === "login" && currentUser === null){
         document.getElementById('modal').style.display='block'
-    } else if (event.target.id === "signup"){
+    } else if (event.target.id === "signup" && currentUser === null){
         console.log(event.target)
         document.getElementById('signupmodal').style.display='block'
-    } else if (event.target.id === "logout"){
+    } else if (event.target.id === "logout" && currentUser){
         currentUser = null
+        asidePeekaboo()
         console.log(currentUser)
     }
 }
@@ -61,6 +73,7 @@ function handleSignup(event){
     .then(returnedUserObj => {
         currentUser = returnedUserObj
         renderUserProfile(currentUser)
+        asidePeekaboo()
         event.target.reset()
         signupModal.style.display = "none"
         console.log('Success New User:', returnedUserObj);
@@ -93,6 +106,7 @@ function handleForm(event){
             if (user.username === userObj.username && user.pin === userObj.pin){
                 currentUser = user
                 renderUserProfile(currentUser)
+                asidePeekaboo()
                  modal.style.display = "none"
     
             } // else {
