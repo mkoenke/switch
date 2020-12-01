@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./src/index.js" defer></script>
+    <script src="./src/userProfile.js" defer></script>
     <link rel="stylesheet" href="index.css" />
     <title>Document</title>
 </head>
@@ -19,12 +20,12 @@
             <div id="login">Login</div>
         </div>
         <!-- User Profile -->
-        <aside>
-            <ul class="side-list">
-                <h2>Username</h2>
+        <aside id="profile">
+            <ul>
+                <h2>Profile</h2>
 
-                <li class="item">User Profile</li>
-                <li class="item">Points</li>
+                <li class="item">Username: <span id="username"></span></li>
+                <li class="item">Points: <span id="points"></span></li>
 
             </ul>
 
