@@ -69,3 +69,10 @@
 .color-hidden {
     background-color: grey;
 }
+.card.done {
+    cursor:default; 
+}
+.card.done:hover {
+    cursor: default;
+    box-shadow: none;
+}
