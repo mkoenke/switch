@@ -2,8 +2,7 @@
 function memoryJS(){
 
     let clickedCard 
-    let correctCombos = 0
-    let cheat = false
+
 
     document.addEventListener("keydown", cheatCode)
     function cheatCode(event){
@@ -74,6 +73,8 @@ function memoryJS(){
                     gameOver = true
                     currentGameSession.score = parseInt(timer.textContent)
                     postScore()
+                    timer.style.display ="none"
+                    loadAbout()
                 } 
             }
         }

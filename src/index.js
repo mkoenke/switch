@@ -18,9 +18,12 @@ let allUsers
 let currentUser = null
 let allGames
 let currentGame
-let gameOver = false
 let currentGameSession
+
+let gameOver = false
 let preventClick = true
+let correctCombos = 0
+let cheat = false
 
 //aside peekaboo
 function elementPeekaboo(element) {
@@ -46,9 +49,9 @@ function handleNavBarClicks(event) {
     } else if (event.target.id === "logout" && currentUser) {
         currentUser = null
         elementPeekaboo(playerProfile)
-        elementPeekaboo(gameDisplay)
-        elementPeekaboo(timer)
-        // elementPeekaboo(startButton)
+        gameDisplay.innerHTML = ""
+        timer.style.display ="none"
+        startButton.style.display = "none"
         console.log(currentUser)
     } else if (event.target.id === "memory" && currentUser) {
         // loadGame("memory")
@@ -56,17 +59,27 @@ function handleNavBarClicks(event) {
         elementPeekaboo(gameDisplay)
         elementPeekaboo(timer)
         elementPeekaboo(startButton)
-        loadGame()
-        getTimer()
-        memoryJS()
-        fetchGameSession()
+        loadAndSetGame()
         console.log(event.target)
     } else if (event.target.id === "about"){
         timer.style.display ="none"
-        // startButton.style.display = "none"
+        startButton.style.display = "none"
         loadAbout()
         console.log(event.target)
     }
+}
+
+// start game function
+
+function loadAndSetGame(){
+    loadGame()
+    getTimer()
+    memoryJS()
+    fetchGameSession()
+    gameOver = false
+    preventClick = true
+    correctCombos = 0
+    cheat = false
 }
 
 // create game session
@@ -88,13 +101,6 @@ function fetchGameSession (){
     .then(returnedGS => {
         console.log('New Game Session:', returnedGS);
         currentGameSession = returnedGS
-
-        // TAKE OUT
-        currentGameSession.score = 100
-        postScore()
-        //TAKE OUT
-        
-        
     })
     .catch((error) => {
     console.error('Error:', error);
@@ -154,7 +160,7 @@ function updateTotalPoints(){
 
 function loadAbout(){
     gameDisplay.innerHTML = `<h1>Welcome to Games Galore!</h1>
-    <h2>Play each game as best you can try ti beat the clock! <br>
+    <h2>Play each game as best you can try to beat the clock! <br>
          The faster you play, the more points you get!</h2>
      `
 
