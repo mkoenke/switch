@@ -7,8 +7,10 @@
     <script src="./src/index.js" defer></script>
     <script src="./src/timer.js" defer></script>
     <script src="./src/memory.js" defer></script>
+    <script src="./src/pin-login.js" defer></script>
     <script src="./src/userProfile.js" defer></script>
     <link rel="stylesheet" href="index.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Document</title>
 </head>
 
@@ -55,11 +57,10 @@
         <!-- Button to open the modal login form -->
 
         <!-- The Modal -->
-        <div id="modal" class="modal">
-            <!-- <span onclick="document.getElementById('modal').style.display='none' class="close" title="Close Modal">&times;</span> -->
-
+        <!-- <div id="modal" class="modal"> -->
+            
             <!-- Modal Content -->
-            <form id="login-form" class="modal-content animate" action="/action_page.php">
+            <!-- <form id="login-form" class="modal-content animate" action="/action_page.php">
 
                 <div class="container">
                     <label for="username"><b>Username</b></label>
@@ -72,9 +73,6 @@
                     <label>
                         <input type="checkbox" checked="checked" name="remember"> Remember me
                     </label><br>
-                    <!-- </div> -->
-
-                    <!-- <div class="container" style="background-color:#9cf163"> -->
                     <button type="button" onclick="document.getElementById('modal').style.display='none'"
                         class="cancelbtn">Cancel</button><br>
                     <span class="psw">Forgot Pin?</span>
@@ -82,7 +80,7 @@
             </form>
         </div>
 
-
+ -->
 
         <!-- Button to open the modal login form -->
 
@@ -96,16 +94,18 @@
                     <label for="username"><b>Username</b></label>
                     <input type="text" name="username" placeholder="Enter Username" value="" required><br>
 
-                    <label for="pin"><b>Pin</b></label>
-                    <input type="Pin" name="pin" placeholder="Enter Pin" value="" required><br>
-
+                    <div class="pin-login" id="mainPinLogin">
+                        <input type="pin" readonly class="pin-login__text">
+                        <div class="pin-login__numpad">
+                        </div>
+                    </div><br>
+<!-- 
                     <button id="submitbtn">Login</button><br>
                     <label>
                         <input type="checkbox" checked="checked" name="remember"> Remember me
-                    </label><br>
+                    </label><br> -->
 
                     <button type="button" class="cancelbtn">Cancel</button><br>
-                    <span class="psw">Forgot Pin?</span>
                 </div>
             </form>
         </div>

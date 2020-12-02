@@ -40,6 +40,7 @@ function handleNavBarClicks(event) {
     // console.log(event.target)
     if (event.target.id === "login" && currentUser === null) {
         document.getElementById('modal').style.display = 'block'
+        getPinLogin()
     } else if (event.target.id === "signup" && currentUser === null) {
         console.log(event.target)
         document.getElementById('signupmodal').style.display = 'block'
