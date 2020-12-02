@@ -2,9 +2,7 @@
 function memoryJS(){
 
     let clickedCard 
-    let preventClick = false
     let correctCombos = 0
-
 
 
 
@@ -18,7 +16,7 @@ function memoryJS(){
     ///assign random colors to cards 
 
     const colors = [
-        "red", "orange", "yellow", "green", "blue", "indigo", "purple", "cyan", "lightblue", "redorange", "pink", "salmon", "seagreen", "slategrey", "teal", "blueviolet", "goldenrod", "royalblue"
+        "red", "orange", "yellow", "green", "blue", "indigo", "purple", "cyan", "lightblue", "orangered", "pink", "salmon", "seagreen", "slategrey", "teal", "blueviolet", "goldenrod", "royalblue"
     ]
     const cards = [...document.querySelectorAll(".card")]
     for (let color of colors){

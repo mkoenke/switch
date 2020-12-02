@@ -27,10 +27,11 @@ function getTimer (){
         }, 100)
     }
 
-   const button = document.createElement("button")
-    button.textContent = "START!"
-    button.addEventListener("click", startTimer)
-    timer.append(button)
+    startButton.addEventListener("click", () => {
+        startTimer()
+        startButton.style.display = "none"
+        preventClick = false
+    })   
 
     renderTimerForGame(currentGame)
 }
