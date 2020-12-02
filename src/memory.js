@@ -2,6 +2,17 @@ let clickedCard
 let preventClick = false
 let correctCombos = 0
 
+
+///DOM elements
+const board = document.querySelector(".memory-board")
+
+/// event listeners
+
+board.addEventListener("click", handleCardClick)
+
+
+///assign random colors to cards 
+
 const colors = [
     "red", "orange", "yellow", "green", "blue", "indigo", "purple", "cyan", "lightblue", "redorange", "pink", "salmon", "seagreen", "slategrey", "teal", "blueviolet", "goldenrod", "royalblue"
 ]
@@ -20,8 +31,10 @@ for (let color of colors){
     cardB.setAttribute("data-color", color)
 }
 
+/// game logic
 
-function onCardClicked(event){
+function handleCardClick(event){
+    if (event.target.className.includes("card")){
     const target = event.target
     if (preventClick || target === clickedCard || target.className.includes("done")){
         return
@@ -53,4 +66,5 @@ function onCardClicked(event){
             }
         }
     }
+}
 }
