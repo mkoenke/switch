@@ -85,13 +85,15 @@ function fetchGameSession (){
     })
     .then(response => response.json())
     .then(returnedGS => {
+        console.log('New Game Session:', returnedGS);
         currentGameSession = returnedGS
 
         // TAKE OUT
-        currentGameSession.total_points = 100
-
+        currentGameSession.score = 100
+        postScore()
+        //TAKE OUT
         
-        console.log('New Game Session:', returnedGS);
+        
     })
     .catch((error) => {
     console.error('Error:', error);
@@ -102,8 +104,8 @@ function fetchGameSession (){
 //post score when finished
 function postScore(){
 
-    fetch(`${URL}/game_sessions`, {
-    method: 'PATCH', // or 'PUT'
+    fetch(`${URL}/game_sessions/${currentGameSession.id}`, {
+    method: 'PATCH', 
     headers: {
         'Content-Type': 'application/json',
     },
@@ -111,6 +113,9 @@ function postScore(){
     })
     .then(response => response.json())
     .then(updatedGameSession => {
+    currentUser.totalPoints = currentUser.totalPoints + updatedGameSession.score
+  
+    updateTotalPoints()  
     console.log('Updated game session at end of game:', updatedGameSession);
     })
     .catch((error) => {
@@ -123,7 +128,24 @@ function postScore(){
 /// update total points and display on profile
 
 function updateTotalPoints(){
-    currentUser.total_points
+    const updatedTotalPoints = {
+        total_points: 100
+    }
+    fetch(`${URL}/users/${currentUser.id}`, {
+        method: 'PATCH', 
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedTotalPoints),
+        })
+        .then(response => response.json())
+        .then(returnedUpdatedUser => {
+        
+        console.log(returnedUpdatedUser);
+        })
+        .catch((error) => {
+        console.error('Error:', error);
+        });
 }
 
 
@@ -141,7 +163,6 @@ function loadAbout(){
 
 function loadGame(){
    
-    
     gameDisplay.innerHTML = `<div class="memory-board"> 
     <div class="row">
         <div class="card color-hidden" ></div>
