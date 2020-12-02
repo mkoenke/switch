@@ -43,8 +43,17 @@ function handleNavBarClicks(event) {
     } else if (event.target.id === "memory" && currentUser) {
         // loadGame("memory")
         console.log(event.target)
+    } else if (event.target.id === "about"){
+        // loadAbout()
+        console.log(event.target)
     }
 }
+
+/// load about page
+
+// function loadAbout(){
+
+// }
 
 const signupModal = document.getElementById('signupmodal')
 const signupForm = signupModal.querySelector("form")
