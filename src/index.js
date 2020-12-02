@@ -7,6 +7,10 @@ const navBar = document.querySelector(".topnav")
 const loginDiv = document.querySelector("#login")
 const aside = document.querySelector("aside")
 const playerProfile = document.querySelector("#profile");
+const gameDisplay = document.querySelector("#game-display")
+const timer = document.querySelector("#timer")
+const startButton = document.querySelectorAll("#start")
+
 
 //application state
 
@@ -14,6 +18,8 @@ let allUsers
 let currentUser = null
 let allGames
 let currentGame
+let gameOver = false
+let currentGameSession
 
 //aside peekaboo
 function elementPeekaboo(element) {
@@ -39,21 +45,155 @@ function handleNavBarClicks(event) {
     } else if (event.target.id === "logout" && currentUser) {
         currentUser = null
         elementPeekaboo(playerProfile)
+        elementPeekaboo(gameDisplay)
+        elementPeekaboo(timer)
+        // elementPeekaboo(startButton)
         console.log(currentUser)
     } else if (event.target.id === "memory" && currentUser) {
         // loadGame("memory")
+        currentGame = allGames[0]
+        elementPeekaboo(gameDisplay)
+        elementPeekaboo(timer)
+        // elementPeekaboo(startButton)
+        loadGame()
+        getTimer()
+        memoryJS()
+        fetchGameSession()
         console.log(event.target)
     } else if (event.target.id === "about"){
-        // loadAbout()
+        timer.style.display ="none"
+        // startButton.style.display = "none"
+        loadAbout()
         console.log(event.target)
     }
 }
 
+// create game session
+
+function fetchGameSession (){
+    const newGS = {
+        user_id: currentUser.id,
+        game_id: currentGame.id
+    }
+    console.log(newGS)
+    fetch(`${URL}/game_sessions`, {
+    method: 'POST', 
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newGS),
+    })
+    .then(response => response.json())
+    .then(returnedGS => {
+        currentGameSession = returnedGS
+
+        // TAKE OUT
+        currentGameSession.total_points = 100
+
+        
+        console.log('New Game Session:', returnedGS);
+    })
+    .catch((error) => {
+    console.error('Error:', error);
+    });
+        
+}
+
+//post score when finished
+function postScore(){
+
+    fetch(`${URL}/game_sessions`, {
+    method: 'PATCH', // or 'PUT'
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(currentGameSession),
+    })
+    .then(response => response.json())
+    .then(updatedGameSession => {
+    console.log('Updated game session at end of game:', updatedGameSession);
+    })
+    .catch((error) => {
+    console.error('Error:', error);
+    });
+}
+
+
+
+/// update total points and display on profile
+
+function updateTotalPoints(){
+    currentUser.total_points
+}
+
+
 /// load about page
 
-// function loadAbout(){
+function loadAbout(){
+    gameDisplay.innerHTML = `<h1>Welcome to Games Galore!</h1>
+    <h2>Play each game as best you can try ti beat the clock! <br>
+         The faster you play, the more points you get!</h2>
+     `
 
-// }
+}
+
+///load memory game
+
+function loadGame(){
+   
+    
+    gameDisplay.innerHTML = `<div class="memory-board"> 
+    <div class="row">
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+    </div>
+    <div class="row">
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+    </div>
+    <div class="row">
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+    </div>
+    <div class="row">
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+    </div>
+    <div class="row">
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+    </div>
+    <div class="row">
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+        <div class="card color-hidden" ></div>
+    </div>
+</div>`
+
+}
 
 const signupModal = document.getElementById('signupmodal')
 const signupForm = signupModal.querySelector("form")
