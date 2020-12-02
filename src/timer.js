@@ -21,16 +21,17 @@ function getTimer (){
 
             timer.textContent = parseFloat(timer.textContent).toPrecision(decimal)
             
-            if (parseFloat(timer.textContent) === 0){
+            if (parseFloat(timer.textContent) === 0 || gameOver){
                 clearInterval(interval)
             }
         }, 100)
     }
 
-   const button = document.createElement("button")
-    button.textContent = "START!"
-    button.addEventListener("click", startTimer)
-    timer.append(button)
+    startButton.addEventListener("click", () => {
+        startTimer()
+        startButton.style.display = "none"
+        preventClick = false
+    })   
 
     renderTimerForGame(currentGame)
 }

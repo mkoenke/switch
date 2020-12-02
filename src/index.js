@@ -9,7 +9,7 @@ const aside = document.querySelector("aside")
 const playerProfile = document.querySelector("#profile");
 const gameDisplay = document.querySelector("#game-display")
 const timer = document.querySelector("#timer")
-const startButton = document.querySelectorAll("#start")
+const startButton = document.querySelector("#start")
 
 
 //application state
@@ -20,10 +20,11 @@ let allGames
 let currentGame
 let gameOver = false
 let currentGameSession
+let preventClick = true
 
 //aside peekaboo
 function elementPeekaboo(element) {
-    if (element.style.display === "none") {
+        if (element.style.display === "none") {
         element.style.display = "block";
     } else if (currentUser === null) {
         element.style.display = "none";
@@ -54,7 +55,7 @@ function handleNavBarClicks(event) {
         currentGame = allGames[0]
         elementPeekaboo(gameDisplay)
         elementPeekaboo(timer)
-        // elementPeekaboo(startButton)
+        elementPeekaboo(startButton)
         loadGame()
         getTimer()
         memoryJS()
@@ -129,7 +130,7 @@ function postScore(){
 
 function updateTotalPoints(){
     const updatedTotalPoints = {
-        total_points: 100
+        total_points: currentUser.totalPoints
     }
     fetch(`${URL}/users/${currentUser.id}`, {
         method: 'PATCH', 
