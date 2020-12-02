@@ -3,9 +3,15 @@ function memoryJS(){
 
     let clickedCard 
     let correctCombos = 0
+    let cheat = false
 
-
-
+    document.addEventListener("keydown", cheatCode)
+    function cheatCode(event){
+        if(event.key === "y"){
+          cheat = true  
+        }
+    }
+        
     ///DOM elements
     const board = document.querySelector(".memory-board")
 
@@ -63,12 +69,12 @@ function memoryJS(){
                 correctCombos++
                 console.log("cards ARE equal")
                 clickedCard = null
-                if (correctCombos === 18){
+                if (correctCombos === 18 || cheat){
                     alert("You win!")
                     gameOver = true
-                    currentGameSession.score = 100
+                    currentGameSession.score = parseInt(timer.textContent)
                     postScore()
-                }
+                } 
             }
         }
     }

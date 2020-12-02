@@ -141,7 +141,7 @@ function updateTotalPoints(){
         })
         .then(response => response.json())
         .then(returnedUpdatedUser => {
-        
+        renderUserProfile(returnedUpdatedUser)
         console.log(returnedUpdatedUser);
         })
         .catch((error) => {
