@@ -11,6 +11,11 @@ main {
     height: 100vh;
 }
 
+/* avatar */
+
+#avatar {
+    width: 150px;
+}
 
 /* timer */
 
@@ -111,9 +116,9 @@ aside ul {
     border-radius: 7%;
 }
 
-aside li.item:hover {
+/* aside li.item:hover {
     background-color: #929290;
-}
+} */
 
 
 
