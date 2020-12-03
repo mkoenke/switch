@@ -5,6 +5,7 @@
         }
       
         handleBuy = () => {
+            
         //   this.prize.donations += 10
         //   const span = this.findChildElement(".donation-count")
         //   span.textContent = this.animal.donations
