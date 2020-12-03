@@ -9,7 +9,6 @@ function getPinLogin(){
 
             this.maxNumbers = 4
             this.value = ""
-
             this._generatePad()
         }
 
@@ -72,13 +71,14 @@ function getPinLogin(){
                 console.log(correctPin)
                 
                 if (parseInt(this.value) === correctPin){
-                    console.log(this.value)
+                    console.log(this)
                     elementPeekaboo(playerProfile)
                     renderUserProfile(currentUser)
                     modal.style.display = "none"
                 } else {
                     alert("Wrong PIN, please try again!")
                     this.value = ""
+                    console.log(this)
                     
                 }
             }
@@ -87,8 +87,9 @@ function getPinLogin(){
         }
     }
 
-    new PinLogin({
+    currentPin = new PinLogin({
         el: document.getElementById("mainPinLogin")
         
     })
+    
 }

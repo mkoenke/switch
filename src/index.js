@@ -21,6 +21,7 @@ let currentGame
 let gameOver = false
 let currentGameSession
 let preventClick = true
+let currentPin
 
 //aside peekaboo
 function elementPeekaboo(element) {
@@ -37,9 +38,8 @@ function elementPeekaboo(element) {
 navBar.addEventListener("click", handleNavBarClicks)
 
 function handleNavBarClicks(event) {
-    // console.log(event.target)
+
     if (event.target.id === "login" && currentUser === null) {
-        // document.getElementById('modal').innerHTML = ""
         document.getElementById('modal').style.display = 'block'
         getPinLogin()
     } else if (event.target.id === "signup" && currentUser === null) {
@@ -50,8 +50,10 @@ function handleNavBarClicks(event) {
         elementPeekaboo(playerProfile)
         elementPeekaboo(gameDisplay)
         elementPeekaboo(timer)
-        // elementPeekaboo(startButton)
-        console.log(currentUser)
+        console.log(currentPin)
+        document.querySelector(".pin-login__text").value = ""
+        currentPin = null
+        console.log(currentPin)
     } else if (event.target.id === "memory" && currentUser) {
         // loadGame("memory")
         currentGame = allGames[0]
@@ -63,7 +65,9 @@ function handleNavBarClicks(event) {
         memoryJS()
         fetchGameSession()
         console.log(event.target)
-    } else if (event.target.id === "about"){
+    } else if (event.target.id === "memory" && !currentUser){
+        alert("Please Log In!")
+    }else if (event.target.id === "about"){
         timer.style.display ="none"
         // startButton.style.display = "none"
         loadAbout()
@@ -264,7 +268,7 @@ function handleSignup(event) {
                 console.log('Success New User:', returnedUserObj);
             })
             .catch((error) => {
-                // alert(error)
+
                 console.error('Error:', error);
             });
         } else {
