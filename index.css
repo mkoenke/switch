@@ -392,6 +392,10 @@ section {
     font-weight: bold;
     cursor: pointer;
   }
+
+  .material-icons {
+    display: inline-flex !important;
+  }
   
   .pin-login__key:active {
     background: rgba(0, 0, 0, 0.25);

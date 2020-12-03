@@ -22,6 +22,7 @@ function getTimer (){
             timer.textContent = parseFloat(timer.textContent).toPrecision(decimal)
             
             if (parseFloat(timer.textContent) === 0 || gameOver){
+                preventClick = true
                 clearInterval(interval)
             }
         }, 100)

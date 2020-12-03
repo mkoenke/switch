@@ -71,6 +71,7 @@ function memoryJS(){
                 if (correctCombos === 18 || cheat){
                     alert("You win!")
                     gameOver = true
+                    preventClick = true
                     currentGameSession.score = parseInt(timer.textContent)
                     postScore()
                     timer.style.display ="none"
