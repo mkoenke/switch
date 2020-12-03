@@ -12,6 +12,8 @@ const timer = document.querySelector("#timer")
 const startButton = document.querySelector("#start")
 const prizeDisplay = document.querySelector("#prize-display")
 const prizeList = document.querySelector("#prize-list")
+const userPrizeList = document.querySelector("#user-prize-list")
+const contentDisplay = document.querySelector("#content-display")
 
 
 //application state
@@ -54,6 +56,7 @@ function handleNavBarClicks(event) {
     } else if (event.target.id === "logout" && currentUser) {
         currentUser = null
         elementPeekaboo(playerProfile)
+        // contentDisplay.style.display = "none"
         gameDisplay.innerHTML = ""
         timer.style.display ="none"
         startButton.style.display = "none"
@@ -72,6 +75,7 @@ function handleNavBarClicks(event) {
     } else if (event.target.id === "about"){
         timer.style.display ="none"
         startButton.style.display = "none"
+        prizeDisplay.innerHTML = ""
         loadAbout()
         console.log(event.target)
     } else if (event.target.id === "prizes" && currentUser){
@@ -79,7 +83,7 @@ function handleNavBarClicks(event) {
         startButton.style.display = "none"
         gameDisplay.innerHTML = ""
         // prizeDisplay.innerHTML = ""
-
+        
         prizeDisplay.style.display = "block"
         // prizeDisplay.innerHTML = ""
 
@@ -90,12 +94,37 @@ function handleNavBarClicks(event) {
     }
 }
 /// display all prizes
-
+// let checkedPizes = 0
 function displayAllPrizes(){
-    allPrizes.forEach(prizeObj => {
+    allPrizes.forEach(checkPrize)
+
+        // prizeObj => {
+        // if(currentUser.prizes.forEach(prize =>{
+        //     prize === prizeObj
+        // })){
+        //     const prizeComponent = new PrizeComponent(prizeObj)
+        //     prizeComponent.render(prizeList)
+        // } else {
+        //     checkedPrizes++
+        // }
+
+        // if (checkedPizes === allPrizes.length){
+
+        // }
+        
+    //   })
+}
+
+function checkPrize(prizeObj){
+    if (currentUser.prizes.filter(prize => (prize.name === prizeObj.name))){
         const prizeComponent = new PrizeComponent(prizeObj)
-        prizeComponent.render(prizeList)
-      })
+        prizeComponent.render(prizeList)    
+    } else {
+        allPrizes.forEach(prize =>{
+            const prizeComponent = new PrizeComponent(prize)
+            prizeComponent.render(prizeList)
+        })
+    }
 }
 
 
@@ -190,8 +219,9 @@ function updateTotalPoints(){
 /// load about page
 
 function loadAbout(){
-    gameDisplay.innerHTML = `<h1>Welcome to Games Galore!</h1>
-    <h2>Play each game as best you can try to beat the clock! <br>
+    gameDisplay.innerHTML = `<h1>Welcome to</h1>
+    <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimage.remarqueble.com%2Fuspto%2F85324748&f=1&nofb=1" alt="">
+    <h2>Play each game as best you can try ti beat the clock! <br>
          The faster you play, the more points you get!</h2>
      `
 

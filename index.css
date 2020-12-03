@@ -405,6 +405,8 @@ section {
   /* Prize Css */
   .cards {
     /* display: flex; */
+    display:block;
+    float:left;
     flex-wrap: wrap;
     list-style: none;
     margin: 1rem 0 0 0;

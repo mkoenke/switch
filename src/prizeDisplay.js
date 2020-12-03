@@ -6,23 +6,64 @@
       
         handleBuy = () => {
             
-        //   this.prize.donations += 10
-        //   const span = this.findChildElement(".donation-count")
-        //   span.textContent = this.animal.donations
-      
-        //   client.patch(`/animals/${this.animal.id}`, {
-        //     donations: this.animal.donations
-        //   })
+
+            userPrizeObj = {
+                user_id: currentUser.id,
+                prize_id: this.prize.id
+            }
+            currentUser.totalPoints = currentUser.totalPoints - this.prize.cost
+            fetch(`${URL}/user_prizes/`, {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userPrizeObj),
+            })
+            .then(response => response.json())
+            .then(newUserPrizeObj => {
+            this.element.remove() 
+            // this.element.renderBought(userPrizeList) 
+            renderUserProfile(currentUser)
+            
+            console.log('Success new userPrizeObj:', newUserPrizeObj);
+            })
+            .catch((error) => {
+            console.error('Error:', error);
+            });
+
+            updateTotalPoints()
+
+            
+            
+            //remove card from prize display
+            // create user prize 
+            // render card on collected card list
         }
       
-        // handleDelete = () => {
-        //   this.element.remove()
-        //   client.delete(`/animals/${this.animal.id}`)
-        // }
       
         findChildElement(selector) {
           return this.element.querySelector(selector)
         }
+
+        // renderBought(parentElement){
+            
+        // this.element = document.createElement("li")
+        // this.element.classList.add("card")
+        // this.element.innerHTML = `
+        //     <div class="image">
+        //     <img src="${this.prize.imageUrl}" alt="${this.prize.name}">
+        //     </div>
+        //     <div class="content">
+        //     <h4>${this.prize.name}</h4>
+        //     <div class="cost">
+        //         $<span class="cost-count">${this.prize.cost}</span> Points
+        //     </div>
+        //     <p class="description">${this.prize.description}</p>
+        //     </div>
+        // `
+
+        //   parentElement.append(this.element)
+        // }
       
         render(parentElement) {
           this.element = document.createElement("li")

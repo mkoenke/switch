@@ -11,7 +11,8 @@ const renderUserProfile = (userObj) => {
     avatar.src = userObj.avatar
     // console.log(userObj)
     deleteButton.addEventListener("click", deleteUser)
-
+    currentUser.prizes.forEach(renderBought)
+    
 }
 
 function deleteUser(){
@@ -29,4 +30,24 @@ fetch(`${URL}/users/${currentUser.id}`, {
   console.error('Error:', error);
 });
 }
+
+const renderBought = (prize) => {
+            
+  const li = document.createElement("li")
+  li.classList.add("card")
+  li.innerHTML = `
+      <div class="image">
+      <img src="${prize.imageUrl}" alt="${prize.name}">
+      </div>
+      <div class="content">
+      <h4>${prize.name}</h4>
+      <div class="cost">
+          $<span class="cost-count">${prize.cost}</span> Points
+      </div>
+      <p class="description">${prize.description}</p>
+      </div>
+  `
+
+    userPrizeList.append(li)
+  }
   
