@@ -91,11 +91,12 @@
             <form id="login-form" class="modal-content animate">
 
                 <div class="container">
-                    <div id="add-message">
+                    <div>
                         <label for="username"><b>Username</b></label>
                         <input type="text" name="username" placeholder="Enter Username" value="" required><br><br>
                         <button id="submitbtn">Confirm Username</button>
                         <br><br>
+                        <div id="error-message"></div>
                     </div>    
                     <br>
                     <div class="pin-login" id="mainPinLogin">
@@ -103,11 +104,7 @@
                         <div class="pin-login__numpad">
                         </div>
                     </div><br>
-<!-- 
-                    <button id="submitbtn">Login</button><br>
-                    <label>
-                        <input type="checkbox" checked="checked" name="remember"> Remember me
-                    </label><br> -->
+        
 
                     <button type="button" class="cancelbtn">Cancel</button><br>
                 </div>
