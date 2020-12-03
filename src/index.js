@@ -24,6 +24,7 @@ let gameOver = false
 let preventClick = true
 let correctCombos = 0
 let cheat = false
+let currentPin
 
 //aside peekaboo
 function elementPeekaboo(element) {
@@ -40,9 +41,10 @@ function elementPeekaboo(element) {
 navBar.addEventListener("click", handleNavBarClicks)
 
 function handleNavBarClicks(event) {
-    // console.log(event.target)
+
     if (event.target.id === "login" && currentUser === null) {
         document.getElementById('modal').style.display = 'block'
+        getPinLogin()
     } else if (event.target.id === "signup" && currentUser === null) {
         console.log(event.target)
         document.getElementById('signupmodal').style.display = 'block'
@@ -52,7 +54,8 @@ function handleNavBarClicks(event) {
         gameDisplay.innerHTML = ""
         timer.style.display ="none"
         startButton.style.display = "none"
-        console.log(currentUser)
+        document.querySelector(".pin-login__text").value = ""
+        currentPin = null
     } else if (event.target.id === "memory" && currentUser) {
         // loadGame("memory")
         currentGame = allGames[0]
@@ -61,7 +64,9 @@ function handleNavBarClicks(event) {
         elementPeekaboo(startButton)
         loadAndSetGame()
         console.log(event.target)
-    } else if (event.target.id === "about"){
+    } else if (event.target.id === "memory" && !currentUser){
+        alert("Please Log In!")
+    }else if (event.target.id === "about"){
         timer.style.display ="none"
         startButton.style.display = "none"
         loadAbout()
@@ -268,7 +273,7 @@ function handleSignup(event) {
                 console.log('Success New User:', returnedUserObj);
             })
             .catch((error) => {
-                // alert(error)
+
                 console.error('Error:', error);
             });
         } else {
@@ -281,35 +286,29 @@ function handleSignup(event) {
 const modal = document.getElementById('modal')
 const cancelBtn = modal.querySelector(".cancelbtn")
 const loginForm = modal.querySelector("form")
-// const submit = modal.querySelector("#submitbtn")
 
-//submit on login form
+      
 loginForm.addEventListener("submit", handleForm)
 
 function handleForm(event) {
 
     event.preventDefault()
-
-
     const userObj = {
-        username: event.target.username.value,
-        pin: parseInt(event.target.pin.value)
+        username: event.target.username.value
     }
-    console.log(userObj)
     let checkedUsers = 0
     allUsers.forEach(function findCurrentUser(user) {
-        if (user.username === userObj.username && user.pin === userObj.pin) {
+        if (user.username === userObj.username) {
             currentUser = user
-            elementPeekaboo(playerProfile)
-            renderUserProfile(currentUser)
-            modal.style.display = "none"
-
+            const div = document.querySelector("#error-message")
+            // div.innerHTML = ""
+            div.textContent = "Please enter your PIN"
         } else {
             checkedUsers++
         }
     })
     if (checkedUsers === allUsers.length){
-        alert("Username and Pin don't match")
+        alert("Can not find username!")
         event.target.reset()
     }
     event.target.reset()
@@ -317,7 +316,6 @@ function handleForm(event) {
 
 }
       
-
 
 //cancel button on login form
 cancelBtn.addEventListener("click", closeLoginForm)
