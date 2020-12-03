@@ -9,6 +9,7 @@
     <script src="./src/memory.js" defer></script>
     <script src="./src/pin-login.js" defer></script>
     <script src="./src/userProfile.js" defer></script>
+    <script src="./src/prizeDisplay.js" defer></script>
     <link rel="stylesheet" href="index.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Document</title>
@@ -25,6 +26,7 @@
             <div id="signup">Sign Up</div>
             <div id="about">About</div>
             <div></div>
+            <div id="prizes">Prize Store</div>
             <div></div>
             <div></div>
             <div id="memory">Switched!</div>
@@ -43,7 +45,11 @@
             </ul>
 
         </aside>
+        <!-- Prize Display Area -->
+        <section id="prize-display" style="display: none;">
+            <ul id="prize-list" class="cards"></ul>
 
+        </section>
         <!-- Game Display Area -->
         <section>
             <div id="timer" style="display: none;">00:00</div>

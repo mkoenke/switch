@@ -10,6 +10,8 @@ const playerProfile = document.querySelector("#profile");
 const gameDisplay = document.querySelector("#game-display")
 const timer = document.querySelector("#timer")
 const startButton = document.querySelector("#start")
+const prizeDisplay = document.querySelector("#prize-display")
+const prizeList = document.querySelector("#prize-list")
 
 
 //application state
@@ -25,6 +27,7 @@ let preventClick = true
 let correctCombos = 0
 let cheat = false
 let currentPin
+let allPrizes
 
 //aside peekaboo
 function elementPeekaboo(element) {
@@ -66,13 +69,36 @@ function handleNavBarClicks(event) {
         console.log(event.target)
     } else if (event.target.id === "memory" && !currentUser){
         alert("Please Log In!")
-    }else if (event.target.id === "about"){
+    } else if (event.target.id === "about"){
         timer.style.display ="none"
         startButton.style.display = "none"
         loadAbout()
         console.log(event.target)
+    } else if (event.target.id === "prizes" && currentUser){
+        timer.style.display ="none"
+        startButton.style.display = "none"
+        gameDisplay.innerHTML = ""
+        // prizeDisplay.innerHTML = ""
+
+        prizeDisplay.style.display = "block"
+        // prizeDisplay.innerHTML = ""
+
+        displayAllPrizes()
+
+    } else if (event.target.id === "prizes" && !currentUser){
+        alert("Please Log In!")
     }
 }
+/// display all prizes
+
+function displayAllPrizes(){
+    allPrizes.forEach(prizeObj => {
+        const prizeComponent = new PrizeComponent(prizeObj)
+        prizeComponent.render(prizeList)
+      })
+}
+
+
 
 // start game function
 
@@ -351,6 +377,12 @@ function initialize() {
         .then(gamesArray => {
             allGames = gamesArray
             console.log(gamesArray)
+        })
+        fetch(`${URL}/prizes`)
+        .then(r => r.json())
+        .then(prizeArray => {
+            allPrizes = prizeArray
+            console.log(prizeArray)
         })
 }
 initialize()
