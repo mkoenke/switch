@@ -326,11 +326,11 @@ section {
 /* PIN LOGIN CSS */
 .pin-login {
     display: inline-block;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 10px;
     font-size: 28px;
-    background: rgb(115, 250, 250);
-    border: 1px solid #363b5e;
+    background: rgb(3, 226, 226);
+    border: 1px solid #023135;
     user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
