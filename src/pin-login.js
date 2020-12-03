@@ -1,15 +1,13 @@
 function getPinLogin(){
     class PinLogin {
-        constructor ({el, loginEndpoint, redirectTo, maxNumbers = Infinity}) {
+        constructor ({el, maxNumbers}) {
             this.el = {
                 main: el,
                 numPad: el.querySelector(".pin-login__numpad"),
                 textDisplay: el.querySelector(".pin-login__text")
             };
 
-            this.loginEndpoint = loginEndpoint;
-            this.redirectTo = redirectTo;
-            this.maxNumbers = maxNumbers;
+            this.maxNumbers = 4;
             this.value = "";
 
             this._generatePad();
@@ -24,60 +22,61 @@ function getPinLogin(){
             ];
 
             padLayout.forEach(key => {
-                const insertBreak = key.search(/[369]/) !== -1;
-                const keyEl = document.createElement("div");
+                const insertBreak = key.search(/[369]/) !== -1
+                const keyEl = document.createElement("div")
 
                 keyEl.classList.add("pin-login__key");
-                keyEl.classList.toggle("material-icons", isNaN(key));
-                keyEl.textContent = key;
-                keyEl.addEventListener("click", () => { this._handleKeyPress(key) });
-                this.el.numPad.appendChild(keyEl);
+                keyEl.classList.toggle("material-icons", isNaN(key))
+                keyEl.textContent = key
+                keyEl.addEventListener("click", () => { this._handleKeyPress(key) })
+                this.el.numPad.appendChild(keyEl)
 
                 if (insertBreak) {
-                    this.el.numPad.appendChild(document.createElement("br"));
+                    this.el.numPad.appendChild(document.createElement("br"))
                 }
-            });
+            })
         }
 
         _handleKeyPress(key) {
             switch (key) {
                 case "backspace":
-                    this.value = this.value.substring(0, this.value.length - 1);
-                    break;
+                    this.value = this.value.substring(0, this.value.length - 1)
+                    break 
                 case "done":
-                    this._attemptLogin();
-                    break;
+                    this._attemptLogin()
+                    break
                 default:
                     if (this.value.length < this.maxNumbers && !isNaN(key)) {
-                        this.value += key;
+                        this.value += key
                     }
-                    break;
+                    break
             }
 
-            this._updateValueText();
+            this._updateValueText()
         }
 
         _updateValueText() {
-            this.el.textDisplay.value = "_".repeat(this.value.length);
+            this.el.textDisplay.value = "*".repeat(this.value.length)
             this.el.textDisplay.classList.remove("pin-login__text--error");
         }
 
         _attemptLogin() {
-            if (this.value.length > 0) {
-                fetch(this.loginEndpoint, {
-                    method: "post",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: `pincode=${this.value}`
-                }).then(response => {
-                    if (response.status === 200) {
-                        window.location.href = this.redirectTo;
-                    } else {
-                        this.el.textDisplay.classList.add("pin-login__text--error");
-                    }
-                })
+            
+            if (this.value.length > 0){
+                const correctPin = currentUser.pin
+                console.log(correctPin)
+                
+                if (parseInt(this.value) === correctPin){
+                    console.log(this.value)
+                    elementPeekaboo(playerProfile)
+                    renderUserProfile(currentUser)
+                    modal.style.display = "none"
+                } else {
+                    alert("Wrong PIN, please try again!")
+                }
             }
+     
+        
         }
     }
 

@@ -91,9 +91,13 @@
             <form id="login-form" class="modal-content animate">
 
                 <div class="container">
-                    <label for="username"><b>Username</b></label>
-                    <input type="text" name="username" placeholder="Enter Username" value="" required><br>
-
+                    <div id="add-message">
+                        <label for="username"><b>Username</b></label>
+                        <input type="text" name="username" placeholder="Enter Username" value="" required><br><br>
+                        <button id="submitbtn">Confirm Username</button>
+                        <br><br>
+                    </div>    
+                    <br>
                     <div class="pin-login" id="mainPinLogin">
                         <input type="pin" readonly class="pin-login__text">
                         <div class="pin-login__numpad">

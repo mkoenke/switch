@@ -279,6 +279,39 @@ const loginForm = modal.querySelector("form")
 // const submit = modal.querySelector("#submitbtn")
 
 //submit on login form
+// loginForm.addEventListener("submit", handleForm)
+
+// function handleForm(event) {
+
+//     event.preventDefault()
+
+
+//     const userObj = {
+//         username: event.target.username.value,
+//         pin: parseInt(event.target.pin.value)
+//     }
+//     console.log(userObj)
+//     let checkedUsers = 0
+//     allUsers.forEach(function findCurrentUser(user) {
+//         if (user.username === userObj.username && user.pin === userObj.pin) {
+//             currentUser = user
+//             elementPeekaboo(playerProfile)
+//             renderUserProfile(currentUser)
+//             modal.style.display = "none"
+
+//         } else {
+//             checkedUsers++
+//         }
+//     })
+//     if (checkedUsers === allUsers.length){
+//         alert("Wrong Username and/or Pin")
+//         event.target.reset()
+//     }
+//     event.target.reset()
+
+
+// }
+      
 loginForm.addEventListener("submit", handleForm)
 
 function handleForm(event) {
@@ -287,24 +320,22 @@ function handleForm(event) {
 
 
     const userObj = {
-        username: event.target.username.value,
-        pin: parseInt(event.target.pin.value)
+        username: event.target.username.value
     }
-    console.log(userObj)
     let checkedUsers = 0
     allUsers.forEach(function findCurrentUser(user) {
-        if (user.username === userObj.username && user.pin === userObj.pin) {
+        if (user.username === userObj.username) {
             currentUser = user
-            elementPeekaboo(playerProfile)
-            renderUserProfile(currentUser)
-            modal.style.display = "none"
-
+            const div = document.createElement("div")
+            div.textContent = "Please enter your PIN"
+            const parent = document.querySelector("#add-message")
+            parent.append(div)
         } else {
             checkedUsers++
         }
     })
     if (checkedUsers === allUsers.length){
-        alert("Username and Pin don't match")
+        alert("Can not find username!")
         event.target.reset()
     }
     event.target.reset()
@@ -312,7 +343,6 @@ function handleForm(event) {
 
 }
       
-
 
 //cancel button on login form
 cancelBtn.addEventListener("click", closeLoginForm)
