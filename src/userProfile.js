@@ -11,6 +11,7 @@ const renderUserProfile = (userObj) => {
     avatar.src = userObj.avatar
     // console.log(userObj)
     deleteButton.addEventListener("click", deleteUser)
+    userPrizeList.innerHTML= ""
     currentUser.prizes.forEach(renderBought)
     
     

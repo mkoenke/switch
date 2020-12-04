@@ -14,6 +14,7 @@ class PrizeComponent {
             prize_id: this.prize.id
         }
         currentUser.totalPoints = currentUser.totalPoints - this.prize.cost
+
         fetch(`${URL}/user_prizes/`, {
             method: 'POST',
             headers: {
@@ -22,19 +23,22 @@ class PrizeComponent {
             body: JSON.stringify(userPrizeObj),
         })
             .then(response => response.json())
-            .then(newUserPrizeObj => {
+            .then(updatedUser => {
                 this.element.remove()
                 // this.element.renderBought(userPrizeList) 
                 // debugger
-                // renderUserProfile(currentUser)
+                currentUser = updatedUser
+                // console.log(updatedUser)
+                
+                renderUserProfile(updatedUser)
 
-                console.log('Success new userPrizeObj:', newUserPrizeObj);
+                console.log('Success updated user:', updatedUser);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
 
-        updateTotalPoints()
+        // updateTotalPoints()
 
         
 

@@ -92,15 +92,13 @@ function handleNavBarClicks(event) {
         startButton.style.display = "none"
         // gameDisplay.innerHTML = ""
         gameDisplay.style.display = "none"
+        // prizeDisplay.innerHTML = ""
         prizeDisplay.style.display = "block"
         prizeHeader.style.display = "block"
         prizeP.style.display = "block"
+        prizeList.innerHTML = " "
         prizeList.style.display = "block"
         displayAllPrizes()
-
-
-
-
 
 
     } else if (event.target.id === "prizes" && !currentUser){
@@ -110,16 +108,31 @@ function handleNavBarClicks(event) {
 
 /// display all prizes
 function displayAllPrizes(){
+    // debugger
+
+
+    let array1 = []
+    let array2 = []
     
-    for (i=0; i< allPrizes.length; i++){
-        currentUser.prizes.forEach(userPrize =>{
-            if(allPrizes[i].id === userPrize.id) {
-                allPrizes.splice(i, 1)
-            }
-        })
+    let leftOverPrizeIds = []
+    array1 = allPrizes.map(prize => prize.id)
+    array2 = currentUser.prizes.map(prize => prize.id)
+    leftOverPrizeIds = array1.filter(prizeId => !array2.includes(prizeId))
+    let prizesToBeRendered = []
+
+
+    for (i=0; i< leftOverPrizeIds.length; i++){
+        prizesToBeRendered.push(allPrizes.find(prize => prize.id === leftOverPrizeIds[i]))
+        // currentUser.prizes.forEach(userPrize =>{
+       
+        //     if(allPrizes[i].id !== userPrize.id) {
+        //         leftOverPrizes.push(allPrizes[i])
+        //         // allPrizes.splice(i, 1)
+        //     }
+        // })
     }
     
-    allPrizes.forEach(prizeObj => {
+    prizesToBeRendered.forEach(prizeObj => {
         let prizeComponent = new PrizeComponent(prizeObj)
         prizeComponent.render(prizeList)   
     })
