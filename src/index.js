@@ -82,51 +82,30 @@ function handleNavBarClicks(event) {
         timer.style.display ="none"
         startButton.style.display = "none"
         gameDisplay.innerHTML = ""
-        // prizeDisplay.innerHTML = ""
-        
         prizeDisplay.style.display = "block"
-        // prizeDisplay.innerHTML = ""
-
         displayAllPrizes()
-
     } else if (event.target.id === "prizes" && !currentUser){
         alert("Please Log In!")
     }
 }
+
 /// display all prizes
-// let checkedPizes = 0
 function displayAllPrizes(){
-    allPrizes.forEach(checkPrize)
-
-        // prizeObj => {
-        // if(currentUser.prizes.forEach(prize =>{
-        //     prize === prizeObj
-        // })){
-        //     const prizeComponent = new PrizeComponent(prizeObj)
-        //     prizeComponent.render(prizeList)
-        // } else {
-        //     checkedPrizes++
-        // }
-
-        // if (checkedPizes === allPrizes.length){
-
-        // }
-        
-    //   })
-}
-
-function checkPrize(prizeObj){
-    if (currentUser.prizes.filter(prize => (prize.name === prizeObj.name))){
-        const prizeComponent = new PrizeComponent(prizeObj)
-        prizeComponent.render(prizeList)    
-    } else {
-        allPrizes.forEach(prize =>{
-            const prizeComponent = new PrizeComponent(prize)
-            prizeComponent.render(prizeList)
+    
+    for (i=0; i< allPrizes.length; i++){
+        currentUser.prizes.forEach(userPrize =>{
+            if(allPrizes[i].id === userPrize.id) {
+                allPrizes.splice(i, 1)
+            }
         })
     }
+    
+    allPrizes.forEach(prizeObj => {
+        const prizeComponent = new PrizeComponent(prizeObj)
+        prizeComponent.render(prizeList)   
+    })
+ 
 }
-
 
 
 // start game function
@@ -309,7 +288,8 @@ function handleSignup(event) {
         const newUserObj = {
             username: event.target.username.value,
             pin: parseInt(event.target.pin.value),
-            total_points: 0
+            total_points: 0,
+            avatar: event.target.avatar.value
         }
         console.log(newUserObj)
         fetch(`${URL}/users`, {
