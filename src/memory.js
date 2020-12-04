@@ -69,13 +69,7 @@ function memoryJS(){
                 console.log("cards ARE equal")
                 clickedCard = null
                 if (correctCombos === 18 || cheat){
-                    alert("You win!")
-                    gameOver = true
-                    preventClick = true
-                    currentGameSession.score = parseInt(timer.textContent)
-                    postScore()
-                    timer.style.display ="none"
-                    loadAbout()
+                    endGame("win")
                 } 
             }
         }

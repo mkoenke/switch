@@ -20,11 +20,15 @@ let allGames
 let currentGame
 let currentGameSession
 
+let activeTimer = false
+
 let gameOver = false
 let preventClick = true
 let correctCombos = 0
 let cheat = false
 let currentPin
+
+let checkWinRef
 
 //aside peekaboo
 function elementPeekaboo(element) {
@@ -33,6 +37,22 @@ function elementPeekaboo(element) {
     } else if (currentUser === null) {
         element.style.display = "none";
     }
+}
+
+// end game
+
+function endGame(condition) {
+    gameOver = true
+    preventClick = true
+    if (condition === "win"){
+        alert("You win!")
+    } else {
+        alert("Better luck next time!")
+    }
+    currentGameSession.score = parseInt(timer.textContent)
+    postScore()
+    timer.style.display = "none"
+    loadAbout()
 }
 
 
@@ -56,15 +76,10 @@ function handleNavBarClicks(event) {
         startButton.style.display = "none"
         document.querySelector(".pin-login__text").value = ""
         currentPin = null
-    } else if (event.target.id === "memory" && currentUser) {
-        // loadGame("memory")
-        currentGame = allGames[0]
-        elementPeekaboo(gameDisplay)
-        elementPeekaboo(timer)
-        elementPeekaboo(startButton)
-        loadAndSetGame()
+    } else if (event.target.id === "memory" || event.target.id === "sliding" && currentUser) {
+        loadAndSetGame(event.target.id)
         console.log(event.target)
-    } else if (event.target.id === "memory" && !currentUser){
+    } else if (event.target.id === "memory" || event.target.id === "sliding" && !currentUser){
         alert("Please Log In!")
     }else if (event.target.id === "about"){
         timer.style.display ="none"
@@ -76,10 +91,18 @@ function handleNavBarClicks(event) {
 
 // start game function
 
-function loadAndSetGame(){
-    loadGame()
+function loadAndSetGame(gameName){
+    currentGame = allGames.find(game => game.title === gameName)
+    elementPeekaboo(gameDisplay)
+    elementPeekaboo(timer)
+    elementPeekaboo(startButton)
+    loadGame(gameName)
+    if (gameName === "memory"){
+        memoryJS()
+    } else if (gameName === "sliding") {
+        checkWinRef = slidingJS()
+    }
     getTimer()
-    memoryJS()
     fetchGameSession()
     gameOver = false
     preventClick = true
@@ -173,9 +196,9 @@ function loadAbout(){
 
 ///load memory game
 
-function loadGame(){
-   
-    gameDisplay.innerHTML = `<div class="memory-board"> 
+function loadGame(gameName){
+    if (gameName === "memory"){
+        gameDisplay.innerHTML = `<div class="memory-board"> 
     <div class="row">
         <div class="card color-hidden" ></div>
         <div class="card color-hidden" ></div>
@@ -225,7 +248,25 @@ function loadGame(){
         <div class="card color-hidden" ></div>
     </div>
 </div>`
-
+    } else if (gameName === "sliding") {
+        gameDisplay.innerHTML = `<div id="table" style="display: inline-block;">
+        <div id="row1" style="display: table-row;">
+            <div id="cell11" class="tile1" data-row="1" data-col="1"></div>
+            <div id="cell12" class="tile2" data-row="1" data-col="2"></div>
+            <div id="cell13" class="tile3" data-row="1" data-col="3"></div>
+        </div>
+        <div id="row2" style="display: table-row;">
+            <div id="cell21" class="tile4" data-row="2" data-col="1"></div>
+            <div id="cell22" class="tile5" data-row="2" data-col="2"></div>
+            <div id="cell23" class="tile6" data-row="2" data-col="3"></div>
+        </div>
+        <div id="row3" style="display: table-row;">
+            <div id="cell31" class="tile7" data-row="3" data-col="1"></div>
+            <div id="cell32" class="tile8" data-row="3" data-col="2"></div>
+            <div id="cell33" class="tile9" data-row="3" data-col="3"></div>
+        </div>
+    </div>`
+    }
 }
 
 const signupModal = document.getElementById('signupmodal')
@@ -335,6 +376,37 @@ function outsideFormClick(event) {
         signupModal.style.display = "none"
     }
 }
+
+/* adding method to array to be able to compare between two arrays */
+// Warn if overriding existing method
+if(Array.prototype.equals)
+    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+// attach the .equals method to Array's prototype to call it on any array
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
+
+    // compare lengths - can save a lot of time 
+    if (this.length != array.length)
+        return false;
+
+    for (var i = 0, l=this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;       
+        }           
+        else if (this[i] != array[i]) { 
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;   
+        }           
+    }       
+    return true;
+}
+// Hide method from for-in loops
+Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 
 
 ///initialize
