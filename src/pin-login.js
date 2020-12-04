@@ -73,6 +73,7 @@ function getPinLogin(){
                 if (parseInt(this.value) === correctPin){
                     console.log(this)
                     elementPeekaboo(playerProfile)
+                    aside.style.display = "block"
                     renderUserProfile(currentUser)
                     modal.style.display = "none"
                 } else {

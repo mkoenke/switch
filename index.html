@@ -29,11 +29,11 @@
             <div id="prizes">Prize Store</div>
             <div></div>
             <div></div>
-            <div id="memory">Switched!</div>
+            <div id="memory">Flip!</div>
 
         </div>
         <!-- User Profile -->
-        <aside>
+        <aside id="aside" >
             <ul id="profile" style="display:none;">
                 <h2>Profile</h2>
 
@@ -50,25 +50,32 @@
             </ul>
 
         </aside>
-        <!-- Prize Display Area -->
+        
         <!-- <div id="content-display"> -->
-            <section id="prize-display" style="display: none;" class="container">
-                <h3>Prize Collector's Cards</h3>
-                <p>(Please note all stats can not be reflected on player's cards)</p>
-                <ul id="prize-list" class="cards">
+          
+        <!-- Game Display Area -->
+        <section >
+            <div id="timer" style="display:none">00:00</div>
+            <br>
+            <button id="start" style="display:none">START</button>
+            <br>
+            <div id="game-display"></div>
+            <!-- <h2 id="prize-header" style="display:none">Prize Collector's Cards</h2>
+            <p id="prize-p" style="display:none">(Please note all stats can not be reflected on player's cards)</p>
+            <ul id="prize-list" class="prize-cards" style="display:none">
 
-                </ul>
+            </ul> -->
+        </section> 
 
-            </section>
-            <!-- Game Display Area -->
-            <section>
-                <div id="timer" style="display: none;">00:00</div>
-                <br>
-                <button id="start" style="display: none;">START</button>
-                <br>
-                <div id="game-display"></div>
-            </section>
-        <!-- </div> -->
+        <!-- Prize Display Area -->
+            <section id="prize-display" style="display: none" class="container">
+            <h2 id="prize-header" style="display:none">Prize Collector's Cards</h2>
+            <p id="prize-p" style="display:none">(Please note all stats can not be reflected on player's cards)</p>
+            <ul id="prize-list" class="prize-cards" style="display:none">
+
+            </ul>
+        </section>
+    <!-- </div> -->
 
         <!-- Button to open the modal login form -->
 

@@ -1,4 +1,15 @@
 /* Main */
+:root {
+    /* --main-bg-color: #FFF8E7; */
+    --alt-bg-color: rgb(112, 199, 236);
+    /* --main-font-color: #FFFFFF; */
+    /* --alt-font-color: rgba(0, 0, 0, 0.85); */
+    /* --alt-font-color-light: rgba(0, 0, 0, 0.68); */
+    --theme-primary: rgb(112, 199, 236);
+    /* --box-shadow: 2px 2px 7px -1px rgba(0, 0, 0, 0.75); */
+  }
+
+
 body {
     margin: 0;
 }
@@ -9,6 +20,7 @@ main {
     grid-template-columns: 300px auto auto auto;
     grid-template-rows: [row1-start] 48px [row1-end] auto [last-line];
     height: 100vh;
+    background-color: rgb(112, 199, 236);
 }
 
 /* avatar */
@@ -81,6 +93,7 @@ aside {
     grid-area: profile;
     text-align: center;
     background-color: rgb(112, 199, 236);
+    padding: 10px;
     
 }
 
@@ -110,10 +123,10 @@ aside .item {
 
 aside ul {
     width: 100%;
-    padding: 0;
-    box-shadow: inset 0px 0px 9px 3px turquoise;
+    padding: 10px;
+    box-shadow: inset 0px 0px 9px 3px rgb(35, 48, 241);
     box-sizing: border-box;
-    border-radius: 7%;
+    /* border-radius: 3%; */
 }
 
 /* aside li.item:hover {
@@ -225,10 +238,11 @@ aside ul {
 
 /* Game Detail */
 
-section {
+ #game-display {
     grid-area: content;
     padding: 2rem;
     background-color: rgb(112, 199, 236);
+    z-index: 1
 }
 
 #detail {
@@ -403,9 +417,36 @@ section {
   
 
   /* Prize Css */
-  .cards {
-    /* display: flex; */
-    display:block;
+
+
+#prize-display {
+    grid-area: content;
+    padding: 2rem;
+    background-color: rgb(112, 199, 236);
+    z-index:1;
+}
+/* 
+#game-display {
+    grid-area: content;
+    padding: 2rem;
+    background-color: rgb(112, 199, 236);
+} */
+#prize-header{
+    text-align:center;
+    font-style: italic;
+}
+#prize-p{
+    text-align:center;
+    font-style:italic;
+}
+#prize-list{
+    text-align:center;
+    padding-left: 100px;
+}
+
+  .prize-cards {
+    display: flex;
+    /* display:block; */
     float:left;
     flex-wrap: wrap;
     list-style: none;
@@ -413,13 +454,16 @@ section {
     padding: 0;
   }
   
-  .card {
+  .prize-card {
     flex: 0 1 calc(25% - 1em);
     margin: 1rem 0.5em;
     display: flex;
+    text-align:center;
     flex-direction: column;
-    overflow: hidden;
-    background-color: var(--alt-bg-color);
+    border-style:double;
+    padding:15px;
+    /* overflow: hidden; */
+    background-color: rgb(7 176 241 / 50%);
     animation: enter 0.25s ease-out;
     -webkit-box-shadow: var(--box-shadow);
     -moz-box-shadow: var(--box-shadow);
@@ -436,16 +480,16 @@ section {
     }
   }
   
-  .card .image {
+  .prize-card .image {
     position: relative;
   }
   
-  .card .image img {
-    width: 100%;
-    height: 100%;
+  .prize-card .image img {
+    width: 50%;
+    height: 50%;
   }
   
-  .card .image .delete-button {
+  .prize-card .image .delete-button {
     position: absolute;
     top: 0;
     right: 0;
@@ -454,47 +498,47 @@ section {
     color: var(--alt-font-color);
   }
   
-  .card .content {
+  .prize-card .content {
     padding: 1rem 0.5rem;
     flex: 1;
   }
   
-  .card .title {
+  .prize-card .title {
     font-weight: 700;
     font-size: 1.1em;
     margin-bottom: 0.5rem;
   }
   
-  .card .description {
+  .prize-card .description {
     color: var(--alt-font-color-light);
   }
   
-  .card .cost {
+  .prize-card .cost {
     font-style: italic;
   }
   
-  .card .button.buy-button {
+  .prize-card .button.buy-button {
     background-color: var(--theme-primary);
     color: var(--alt-font-color);
     width: 100%;
   }
   
   @media (min-width: 400px) and (max-width: 699px) {
-    .card {
+    .prize-card {
       flex: 0 1 auto;
       margin: 1em 0;
     }
   }
   
   @media (min-width: 700px) and (max-width: 899px) {
-    .card {
+    .prize-card {
       flex: 0 1 calc(50% - 2em);
       margin: 1em;
     }
   }
   
   @media (min-width: 900px) and (max-width: 1200px) {
-    .card {
+    .prize-card {
       flex: 0 1 calc(33% - 2em);
       margin: 1em;
     }

@@ -14,6 +14,8 @@ const prizeDisplay = document.querySelector("#prize-display")
 const prizeList = document.querySelector("#prize-list")
 const userPrizeList = document.querySelector("#user-prize-list")
 const contentDisplay = document.querySelector("#content-display")
+const prizeHeader = document.querySelector("#prize-header")
+const prizeP = document.querySelector("#prize-p")
 
 
 //application state
@@ -58,16 +60,22 @@ function handleNavBarClicks(event) {
         elementPeekaboo(playerProfile)
         // contentDisplay.style.display = "none"
         gameDisplay.innerHTML = ""
-        timer.style.display ="none"
+        prizeDisplay.innerHTML = ""
+        // timer.style.display ="none"
         startButton.style.display = "none"
+        aside.style.display = "none"
         document.querySelector(".pin-login__text").value = ""
         currentPin = null
     } else if (event.target.id === "memory" && currentUser) {
         // loadGame("memory")
         currentGame = allGames[0]
-        elementPeekaboo(gameDisplay)
-        elementPeekaboo(timer)
-        elementPeekaboo(startButton)
+        // elementPeekaboo(gameDisplay)
+        // elementPeekaboo(timer)
+        // elementPeekaboo(startButton)
+        gameDisplay.style.display = "block"
+        timer.style.display = "block"
+        startButton.style.display = "block"
+        prizeDisplay.style.display = "none"
         loadAndSetGame()
         console.log(event.target)
     } else if (event.target.id === "memory" && !currentUser){
@@ -75,15 +83,26 @@ function handleNavBarClicks(event) {
     } else if (event.target.id === "about"){
         timer.style.display ="none"
         startButton.style.display = "none"
-        prizeDisplay.innerHTML = ""
+        prizeDisplay.style.display = "none"
+        gameDisplay.style.display = "block"
         loadAbout()
         console.log(event.target)
     } else if (event.target.id === "prizes" && currentUser){
         timer.style.display ="none"
         startButton.style.display = "none"
-        gameDisplay.innerHTML = ""
+        // gameDisplay.innerHTML = ""
+        gameDisplay.style.display = "none"
         prizeDisplay.style.display = "block"
+        prizeHeader.style.display = "block"
+        prizeP.style.display = "block"
+        prizeList.style.display = "block"
         displayAllPrizes()
+
+
+
+
+
+
     } else if (event.target.id === "prizes" && !currentUser){
         alert("Please Log In!")
     }
@@ -101,7 +120,7 @@ function displayAllPrizes(){
     }
     
     allPrizes.forEach(prizeObj => {
-        const prizeComponent = new PrizeComponent(prizeObj)
+        let prizeComponent = new PrizeComponent(prizeObj)
         prizeComponent.render(prizeList)   
     })
  
@@ -186,6 +205,7 @@ function updateTotalPoints(){
         })
         .then(response => response.json())
         .then(returnedUpdatedUser => {
+        currentUser = returnedUpdatedUser
         renderUserProfile(returnedUpdatedUser)
         console.log(returnedUpdatedUser);
         })
@@ -304,6 +324,7 @@ function handleSignup(event) {
                 currentUser = returnedUserObj
                 renderUserProfile(currentUser)
                 elementPeekaboo(playerProfile)
+                aside.style.display = "block"
                 event.target.reset()
                 signupModal.style.display = "none"
                 console.log('Success New User:', returnedUserObj);
