@@ -69,8 +69,6 @@ function slidingJS() {
             endGame("lose")
         }
     }
-
-    return checkWin
 }
 
 let tileOrder

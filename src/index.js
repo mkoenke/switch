@@ -20,6 +20,8 @@ let allGames
 let currentGame
 let currentGameSession
 
+let inGame = false
+
 let activeTimer = false
 
 let gameOver = false
@@ -28,11 +30,9 @@ let correctCombos = 0
 let cheat = false
 let currentPin
 
-let checkWinRef
-
 //aside peekaboo
 function elementPeekaboo(element) {
-        if (element.style.display === "none") {
+    if (element.style.display === "none") {
         element.style.display = "block";
     } else if (currentUser === null) {
         element.style.display = "none";
@@ -44,7 +44,8 @@ function elementPeekaboo(element) {
 function endGame(condition) {
     gameOver = true
     preventClick = true
-    if (condition === "win"){
+    inGame = false
+    if (condition === "win") {
         alert("You win!")
     } else {
         alert("Better luck next time!")
@@ -61,6 +62,7 @@ function endGame(condition) {
 navBar.addEventListener("click", handleNavBarClicks)
 
 function handleNavBarClicks(event) {
+    if(inGame) return;
 
     if (event.target.id === "login" && currentUser === null) {
         document.getElementById('modal').style.display = 'block'
@@ -72,17 +74,16 @@ function handleNavBarClicks(event) {
         currentUser = null
         elementPeekaboo(playerProfile)
         gameDisplay.innerHTML = ""
-        timer.style.display ="none"
+        timer.style.display = "none"
         startButton.style.display = "none"
         document.querySelector(".pin-login__text").value = ""
         currentPin = null
     } else if (event.target.id === "memory" || event.target.id === "sliding" && currentUser) {
         loadAndSetGame(event.target.id)
-        console.log(event.target)
-    } else if (event.target.id === "memory" || event.target.id === "sliding" && !currentUser){
+    } else if (event.target.id === "memory" || event.target.id === "sliding" && !currentUser) {
         alert("Please Log In!")
-    }else if (event.target.id === "about"){
-        timer.style.display ="none"
+    } else if (event.target.id === "about") {
+        timer.style.display = "none"
         startButton.style.display = "none"
         loadAbout()
         console.log(event.target)
@@ -91,16 +92,16 @@ function handleNavBarClicks(event) {
 
 // start game function
 
-function loadAndSetGame(gameName){
+function loadAndSetGame(gameName) {
     currentGame = allGames.find(game => game.title === gameName)
     elementPeekaboo(gameDisplay)
     elementPeekaboo(timer)
     elementPeekaboo(startButton)
     loadGame(gameName)
-    if (gameName === "memory"){
+    if (gameName === "memory") {
         memoryJS()
     } else if (gameName === "sliding") {
-        checkWinRef = slidingJS()
+        slidingJS()
     }
     getTimer()
     fetchGameSession()
@@ -112,81 +113,81 @@ function loadAndSetGame(gameName){
 
 // create game session
 
-function fetchGameSession (){
+function fetchGameSession() {
     const newGS = {
         user_id: currentUser.id,
         game_id: currentGame.id
     }
     console.log(newGS)
     fetch(`${URL}/game_sessions`, {
-    method: 'POST', 
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(newGS),
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newGS),
     })
-    .then(response => response.json())
-    .then(returnedGS => {
-        console.log('New Game Session:', returnedGS);
-        currentGameSession = returnedGS
-    })
-    .catch((error) => {
-    console.error('Error:', error);
-    });
-        
+        .then(response => response.json())
+        .then(returnedGS => {
+            console.log('New Game Session:', returnedGS);
+            currentGameSession = returnedGS
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
 }
 
 //post score when finished
-function postScore(){
+function postScore() {
 
     fetch(`${URL}/game_sessions/${currentGameSession.id}`, {
-    method: 'PATCH', 
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(currentGameSession),
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(currentGameSession),
     })
-    .then(response => response.json())
-    .then(updatedGameSession => {
-    currentUser.totalPoints = currentUser.totalPoints + updatedGameSession.score
-  
-    updateTotalPoints()  
-    console.log('Updated game session at end of game:', updatedGameSession);
-    })
-    .catch((error) => {
-    console.error('Error:', error);
-    });
+        .then(response => response.json())
+        .then(updatedGameSession => {
+            currentUser.totalPoints = currentUser.totalPoints + updatedGameSession.score
+
+            updateTotalPoints()
+            console.log('Updated game session at end of game:', updatedGameSession);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
 
 
 /// update total points and display on profile
 
-function updateTotalPoints(){
+function updateTotalPoints() {
     const updatedTotalPoints = {
         total_points: currentUser.totalPoints
     }
     fetch(`${URL}/users/${currentUser.id}`, {
-        method: 'PATCH', 
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(updatedTotalPoints),
-        })
+    })
         .then(response => response.json())
         .then(returnedUpdatedUser => {
-        renderUserProfile(returnedUpdatedUser)
-        console.log(returnedUpdatedUser);
+            renderUserProfile(returnedUpdatedUser)
+            console.log(returnedUpdatedUser);
         })
         .catch((error) => {
-        console.error('Error:', error);
+            console.error('Error:', error);
         });
 }
 
 
 /// load about page
 
-function loadAbout(){
+function loadAbout() {
     gameDisplay.innerHTML = `<h1>Welcome to Games Galore!</h1>
     <h2>Play each game as best you can try to beat the clock! <br>
          The faster you play, the more points you get!</h2>
@@ -196,8 +197,8 @@ function loadAbout(){
 
 ///load memory game
 
-function loadGame(gameName){
-    if (gameName === "memory"){
+function loadGame(gameName) {
+    if (gameName === "memory") {
         gameDisplay.innerHTML = `<div class="memory-board"> 
     <div class="row">
         <div class="card color-hidden" ></div>
@@ -317,9 +318,9 @@ function handleSignup(event) {
 
                 console.error('Error:', error);
             });
-        } else {
-            alert("you need a uniqe username!")
-            event.target.reset()
+    } else {
+        alert("you need a uniqe username!")
+        event.target.reset()
     }
 
 }
@@ -328,7 +329,7 @@ const modal = document.getElementById('modal')
 const cancelBtn = modal.querySelector(".cancelbtn")
 const loginForm = modal.querySelector("form")
 
-      
+
 loginForm.addEventListener("submit", handleForm)
 
 function handleForm(event) {
@@ -348,7 +349,7 @@ function handleForm(event) {
             checkedUsers++
         }
     })
-    if (checkedUsers === allUsers.length){
+    if (checkedUsers === allUsers.length) {
         alert("Can not find username!")
         event.target.reset()
     }
@@ -356,7 +357,7 @@ function handleForm(event) {
 
 
 }
-      
+
 
 //cancel button on login form
 cancelBtn.addEventListener("click", closeLoginForm)
@@ -379,7 +380,7 @@ function outsideFormClick(event) {
 
 /* adding method to array to be able to compare between two arrays */
 // Warn if overriding existing method
-if(Array.prototype.equals)
+if (Array.prototype.equals)
     console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
 // attach the .equals method to Array's prototype to call it on any array
 Array.prototype.equals = function (array) {
@@ -391,22 +392,22 @@ Array.prototype.equals = function (array) {
     if (this.length != array.length)
         return false;
 
-    for (var i = 0, l=this.length; i < l; i++) {
+    for (var i = 0, l = this.length; i < l; i++) {
         // Check if we have nested arrays
         if (this[i] instanceof Array && array[i] instanceof Array) {
             // recurse into the nested arrays
             if (!this[i].equals(array[i]))
-                return false;       
-        }           
-        else if (this[i] != array[i]) { 
+                return false;
+        }
+        else if (this[i] != array[i]) {
             // Warning - two different object instances will never be equal: {x:20} != {x:20}
-            return false;   
-        }           
-    }       
+            return false;
+        }
+    }
     return true;
 }
 // Hide method from for-in loops
-Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+Object.defineProperty(Array.prototype, "equals", { enumerable: false });
 
 
 ///initialize
