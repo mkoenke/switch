@@ -1,4 +1,4 @@
-// const timer = document.querySelector("#timer")
+
 function getTimer (){
  
     const renderTimerForGame = (gameInfo) => {

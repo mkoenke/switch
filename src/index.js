@@ -10,6 +10,14 @@ const playerProfile = document.querySelector("#profile");
 const gameDisplay = document.querySelector("#game-display")
 const timer = document.querySelector("#timer")
 const startButton = document.querySelector("#start")
+const prizeDisplay = document.querySelector("#prize-display")
+const prizeList = document.querySelector("#prize-list")
+const userPrizeList = document.querySelector("#user-prize-list")
+const contentDisplay = document.querySelector("#content-display")
+const prizeHeader = document.querySelector("#prize-header")
+const prizeP = document.querySelector("#prize-p")
+const aboutDisplay = document.querySelector("#about-display")
+const gameTitle = document.querySelector("#game-title")
 
 
 //application state
@@ -25,6 +33,7 @@ let preventClick = true
 let correctCombos = 0
 let cheat = false
 let currentPin
+let allPrizes
 
 //aside peekaboo
 function elementPeekaboo(element) {
@@ -51,28 +60,87 @@ function handleNavBarClicks(event) {
     } else if (event.target.id === "logout" && currentUser) {
         currentUser = null
         elementPeekaboo(playerProfile)
+        // contentDisplay.style.display = "none"
         gameDisplay.innerHTML = ""
+        prizeDisplay.innerHTML = ""
+        aboutDisplay.style.display = "none"
+        gameTitle.style.display = "none"
         timer.style.display ="none"
         startButton.style.display = "none"
+        aside.style.display = "none"
         document.querySelector(".pin-login__text").value = ""
         currentPin = null
     } else if (event.target.id === "memory" && currentUser) {
         // loadGame("memory")
         currentGame = allGames[0]
-        elementPeekaboo(gameDisplay)
-        elementPeekaboo(timer)
-        elementPeekaboo(startButton)
+        // elementPeekaboo(gameDisplay)
+        // elementPeekaboo(timer)
+        // elementPeekaboo(startButton)
+        gameDisplay.style.display = "block"
+        gameTitle.style.display = "block"
+        timer.style.display = "block"
+        startButton.style.display = "block"
+        prizeDisplay.style.display = "none"
+        aboutDisplay.style.display = "none"
         loadAndSetGame()
         console.log(event.target)
     } else if (event.target.id === "memory" && !currentUser){
         alert("Please Log In!")
-    }else if (event.target.id === "about"){
+    } else if (event.target.id === "about"){
         timer.style.display ="none"
         startButton.style.display = "none"
+        prizeDisplay.style.display = "none"
+        gameDisplay.style.display = "none"
+        gameTitle.style.display = "none"
+        aboutDisplay.style.display = "block"
         loadAbout()
         console.log(event.target)
+    } else if (event.target.id === "prizes" && currentUser){
+        timer.style.display ="none"
+        startButton.style.display = "none"
+        // gameDisplay.innerHTML = ""
+        gameDisplay.style.display = "none"
+        gameTitle.style.display = "none"
+        aboutDisplay.style.display = "none"
+        // prizeDisplay.innerHTML = ""
+        prizeDisplay.style.display = "block"
+        prizeHeader.style.display = "block"
+        prizeP.style.display = "block"
+        prizeList.innerHTML = " "
+        prizeList.style.display = "block"
+        displayAllPrizes()
+
+
+    } else if (event.target.id === "prizes" && !currentUser){
+        alert("Please Log In!")
     }
 }
+
+/// display all prizes
+function displayAllPrizes(){
+   
+    let array1 = []
+    let array2 = []
+    
+    let leftOverPrizeIds = []
+    array1 = allPrizes.map(prize => prize.id)
+    array2 = currentUser.prizes.map(prize => prize.id)
+    leftOverPrizeIds = array1.filter(prizeId => !array2.includes(prizeId))
+    let prizesToBeRendered = []
+
+
+    for (i=0; i< leftOverPrizeIds.length; i++){
+        prizesToBeRendered.push(allPrizes.find(prize => prize.id === leftOverPrizeIds[i]))
+     
+    }
+    
+    prizesToBeRendered.forEach(prizeObj => {
+        let prizeComponent = new PrizeComponent(prizeObj)
+        prizeComponent.render(prizeList)   
+    })
+ 
+}
+
 
 // start game function
 
@@ -152,6 +220,7 @@ function updateTotalPoints(){
         })
         .then(response => response.json())
         .then(returnedUpdatedUser => {
+        currentUser = returnedUpdatedUser
         renderUserProfile(returnedUpdatedUser)
         console.log(returnedUpdatedUser);
         })
@@ -164,9 +233,12 @@ function updateTotalPoints(){
 /// load about page
 
 function loadAbout(){
-    gameDisplay.innerHTML = `<h1>Welcome to Games Galore!</h1>
-    <h2>Play each game as best you can try to beat the clock! <br>
+    aboutDisplay.innerHTML = `<h1>Welcome to</h1>
+    <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimage.remarqueble.com%2Fuspto%2F85324748&f=1&nofb=1" alt="">
+    <h2>Play each game as best you can, and try to beat the clock! <br>
          The faster you play, the more points you get!</h2>
+         <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.P-26ZmRveihJNRAoWvnRbAHaE7%26pid%3DApi&f=1" alt="">
+    
      `
 
 }
@@ -253,7 +325,8 @@ function handleSignup(event) {
         const newUserObj = {
             username: event.target.username.value,
             pin: parseInt(event.target.pin.value),
-            total_points: 0
+            total_points: 0,
+            avatar: event.target.avatar.value
         }
         console.log(newUserObj)
         fetch(`${URL}/users`, {
@@ -268,6 +341,7 @@ function handleSignup(event) {
                 currentUser = returnedUserObj
                 renderUserProfile(currentUser)
                 elementPeekaboo(playerProfile)
+                aside.style.display = "block"
                 event.target.reset()
                 signupModal.style.display = "none"
                 console.log('Success New User:', returnedUserObj);
@@ -301,7 +375,7 @@ function handleForm(event) {
         if (user.username === userObj.username) {
             currentUser = user
             const div = document.querySelector("#error-message")
-            // div.innerHTML = ""
+           
             div.textContent = "Please enter your PIN"
         } else {
             checkedUsers++
@@ -311,7 +385,7 @@ function handleForm(event) {
         alert("Can not find username!")
         event.target.reset()
     }
-    event.target.reset()
+    // event.target.reset()
 
 
 }
@@ -328,7 +402,7 @@ function closeLoginForm() {
 document.addEventListener("click", outsideFormClick)
 
 function outsideFormClick(event) {
-    // console.log(event.target)
+   
     if (event.target === modal) {
         modal.style.display = "none"
     } else if (event.target === signupModal) {
@@ -351,6 +425,12 @@ function initialize() {
         .then(gamesArray => {
             allGames = gamesArray
             console.log(gamesArray)
+        })
+        fetch(`${URL}/prizes`)
+        .then(r => r.json())
+        .then(prizeArray => {
+            allPrizes = prizeArray
+            console.log(prizeArray)
         })
 }
 initialize()

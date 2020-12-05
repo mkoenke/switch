@@ -9,6 +9,7 @@
     <script src="./src/memory.js" defer></script>
     <script src="./src/pin-login.js" defer></script>
     <script src="./src/userProfile.js" defer></script>
+    <script src="./src/prizeDisplay.js" defer></script>
     <link rel="stylesheet" href="index.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Document</title>
@@ -16,22 +17,26 @@
 
 <body>
     <main>
+       
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" integrity="sha256-qM7QTJSlvtPSxVRjVWNM2OfTAz/3k5ovHOKmKXuYMO4=" crossorigin="anonymous"></script>
+        
         <!-- Nav Bar  -->
         <div class="topnav">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wisegeek.com%2Fdice-dominoes-and-game-pieces.jpg&f=1&nofb=1"
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.P-26ZmRveihJNRAoWvnRbAHaE7%26pid%3DApi&f=1"
                 alt="">
             <div id="logout">Logout</div>
             <div id="login">Login</div>
             <div id="signup">Sign Up</div>
             <div id="about">About</div>
             <div></div>
+            <div id="prizes">Prize Store</div>
             <div></div>
             <div></div>
-            <div id="memory">Switched!</div>
+            <div id="memory">Flip!</div>
 
         </div>
         <!-- User Profile -->
-        <aside>
+        <aside id="aside" >
             <ul id="profile" style="display:none;">
                 <h2>Profile</h2>
 
@@ -40,19 +45,48 @@
                 <li class="item" id="points"></li>
                 <br>
                 <button id="deleteUser">Delete User Profile</button>
-            </ul>
+                <br>
+                
+                 <h2>Collected Cards</h2>
+                <ul id="user-prize-list" class="cards">
+                   
+                    
+                </ul>
+           </ul> 
 
         </aside>
-
-        <!-- Game Display Area -->
+        
+        <!-- <div id="content-display"> -->
         <section>
-            <div id="timer" style="display: none;">00:00</div>
-            <br>
-            <button id="start" style="display: none;">START</button>
-            <br>
-            <div id="game-display"></div>
-        </section>
+            <div id="about-display">
 
+            </div>
+            
+        </section>
+          
+        <!-- Game Display Area -->
+        <section >
+            <br>
+            <br>  
+            <div id="timer" style="display:none">00:00</div>
+            <br>
+            <button id="start" style="display:none">START</button>
+            <br>
+            <div id="game-display">
+                <h2 id="game-title" style="display:none">Flip!</h2>
+            </div>
+        
+        </section> 
+
+        <!-- Prize Display Area -->
+        <section id="prize-display" style="display: none" class="container">
+            <h2 id="prize-header" style="display:none">Prize Collector's Cards</h2>
+            <p id="prize-p" style="display:none">(Please note all stats can not be reflected on player's cards)</p>
+            <ul id="prize-list" class="prize-cards" style="display:none">
+
+            </ul>
+        </section>
+    <!-- </div> -->
 
         <!-- Button to open the modal login form -->
 

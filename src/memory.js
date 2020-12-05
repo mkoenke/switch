@@ -1,6 +1,7 @@
 
 function memoryJS(){
-
+    
+    gameTitle.textContent = "Flip!"
     let clickedCard 
 
 
@@ -46,7 +47,7 @@ function memoryJS(){
         if (preventClick || target === clickedCard || target.className.includes("done")){
             return
         }
-        target.className = target.className.replace("color-hidden", "").trim()
+        target.className = target.className.replace(" color-hidden", "").trim()
         target.className += " done"
         console.log(target.getAttribute("data-color"))
         if (!clickedCard){
@@ -58,8 +59,8 @@ function memoryJS(){
                 preventClick = true
                 console.log("cards not equal")
                 setTimeout (() => {
-                    clickedCard.className = clickedCard.className.replace("done", "").trim() + "color-hidden"
-                    target.className = target.className.replace("done", "").trim() + "color-hidden"
+                    clickedCard.className = clickedCard.className.replace("done", "").trim() + " color-hidden"
+                    target.className = target.className.replace("done", "").trim() + " color-hidden"
                     clickedCard = null
                     preventClick = false
                 }, 500)

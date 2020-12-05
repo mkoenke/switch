@@ -43,8 +43,7 @@ function getPinLogin(){
             switch (key) {
                 case "backspace":
                     this.value = this.value.substring(0, this.value.length - 1)
-                    // console.log(this)
-                    // console.log(this.value)
+              
                     break 
                 case "done":
                     this._attemptLogin()
@@ -73,6 +72,7 @@ function getPinLogin(){
                 if (parseInt(this.value) === correctPin){
                     console.log(this)
                     elementPeekaboo(playerProfile)
+                    aside.style.display = "block"
                     renderUserProfile(currentUser)
                     modal.style.display = "none"
                 } else {
