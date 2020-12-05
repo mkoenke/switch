@@ -43,8 +43,7 @@ function getPinLogin(){
             switch (key) {
                 case "backspace":
                     this.value = this.value.substring(0, this.value.length - 1)
-                    // console.log(this)
-                    // console.log(this.value)
+              
                     break 
                 case "done":
                     this._attemptLogin()

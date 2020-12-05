@@ -1,17 +1,36 @@
 /* Main */
+
 :root {
     /* --main-bg-color: #FFF8E7; */
-    --alt-bg-color: rgb(112, 199, 236);
+    --alt-bg-color: rgb(191, 223, 250);
     /* --main-font-color: #FFFFFF; */
     /* --alt-font-color: rgba(0, 0, 0, 0.85); */
     /* --alt-font-color-light: rgba(0, 0, 0, 0.68); */
-    --theme-primary: rgb(112, 199, 236);
+    --theme-primary: rgb(191, 223, 250);
     /* --box-shadow: 2px 2px 7px -1px rgba(0, 0, 0, 0.75); */
+    /* background-color: rgb(112, 199, 236); */
+  }
+button {
+    background-color: var(--theme-primary);
   }
 
 
 body {
     margin: 0;
+    background: linear-gradient(-45deg, #94d7f7, #65aef3, #2dc1f7, #bdecf8);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 main {
@@ -20,7 +39,7 @@ main {
     grid-template-columns: 300px auto auto auto;
     grid-template-rows: [row1-start] 48px [row1-end] auto [last-line];
     height: 100vh;
-    background-color: rgb(112, 199, 236);
+    /* background-color: rgb(112, 199, 236); */
 }
 
 /* avatar */
@@ -32,41 +51,43 @@ main {
 /* timer */
 
 #timer {
-    background-color: white;
+    background-color: rgb(191, 223, 250);
     grid-area: content;
     width: fit-content;
-    padding: 3px;
-    border: 1px solid turquoise;
+    padding: 15px;
+    border-radius: 5px;
+    border: 5px solid rgb(248, 249, 250);
 }
 
 /* Add a black background color to the top navigation */
 
 .topnav {
-    background-color: #333;
+    /* background-color: rgb(67, 106, 236); */
+    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.xKloyZ6p5LdUKNY4K2TspwHaE8%26pid%3DApi&f=1);
+    /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.JjEaq3vc0uw8rxfC_cS_AwHaE8%26pid%3DApi&f=1); */
+    /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.SHQ0kBIog3M21fKSjST7RwHaFw%26pid%3DApi&f=1); */
     overflow: hidden;
     grid-area: nav;
 }
 
 
-/* Style the links inside the navigation bar */
-
-
-  
   /* Style the links inside the navigation bar */
   .topnav div {
     
     float: right;
-    color: #e9e8f0;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-size: 20px;
+    color: #e9e8f0;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px #000000;
+    
   }
 
   .topnav img {
     display: block;
     float: left;
-    width: 120px; 
+    width: 170px; 
     height: 100px; 
     padding-left: 20px;
     
@@ -74,16 +95,21 @@ main {
   
   /* Change the color of links on hover */
   .topnav div:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: rgb(112, 199, 236);
+    color: white;
 }
 
 
 /* Add a color to the active/current link */
 
-.topnav div.active {
+/* .topnav div.active {
     background-color: #4CAF50;
     color: white;
+} */
+/* about display */
+
+#about-display{
+    text-align: center;
 }
 
 
@@ -92,8 +118,10 @@ main {
 aside {
     grid-area: profile;
     text-align: center;
-    background-color: rgb(112, 199, 236);
+    /* background-color: rgb(112, 199, 236); */
     padding: 10px;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
     
 }
 
@@ -121,17 +149,18 @@ aside .item {
     font-weight: bold;
 }
 
-aside ul {
+aside ul#profile {
     width: 100%;
     padding: 10px;
-    box-shadow: inset 0px 0px 9px 3px rgb(35, 48, 241);
+    box-shadow: inset 0px 0px 9px 5px white;
     box-sizing: border-box;
+    list-style-type: none;
     /* border-radius: 3%; */
 }
 
-/* aside li.item:hover {
-    background-color: #929290;
-} */
+aside li {
+    list-style-type: none;
+}
 
 
 
@@ -157,6 +186,10 @@ aside ul {
     /* Black w/ opacity */
     padding-top: 60px;
     text-align: center;
+    color: #e9e8f0;
+    font-size: 24px;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+    
 }
 
 
@@ -173,16 +206,16 @@ aside ul {
 
 
 /* The Close Button */
-
+/* 
 .close {
     /* Position it in the top right corner outside of the modal */
-    position: absolute;
+    /* position: absolute;
     right: 25px;
     top: 0;
     color: #000;
     font-size: 35px;
     font-weight: bold;
-}
+} */ 
 
 #modal {
     position: fixed;
@@ -241,7 +274,7 @@ aside ul {
  #game-display {
     grid-area: content;
     padding: 2rem;
-    background-color: rgb(112, 199, 236);
+    /* background-color: rgb(112, 199, 236); */
     z-index: 1
 }
 
@@ -257,15 +290,18 @@ aside ul {
   }
 
   /* Memory Game */
-
-  .row {
+#game-title{
     text-align:center;
+}
+
+.row {
+text-align:center;
 }
 .card{
     display:inline-block;
     width: 100px;
     height: 100px;
-    background-color: grey;
+    background-color: white;
     cursor:pointer;
 }
 .card:hover{
@@ -327,7 +363,11 @@ aside ul {
     background-color: royalblue;
 }
 .color-hidden {
-    background-color: grey;
+    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.xKloyZ6p5LdUKNY4K2TspwHaE8%26pid%3DApi&f=1)
+    /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.JjEaq3vc0uw8rxfC_cS_AwHaE8%26pid%3DApi&f=1) */
+    /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.GAGKkuRmAYc6NbgksXCZ6gHaHa%26pid%3DApi&f=1); */
+    /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP._QK9B8MNTJppHo3BKcYAmQHaE8%26pid%3DApi&f=1); */
+    /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.8tYo5PRC_ys1qwRbwFTHywHaE8%26pid%3DApi&f=1); */
 }
 .card.done {
     cursor:default; 
@@ -343,8 +383,9 @@ aside ul {
     border-radius: 5px;
     padding: 10px;
     font-size: 28px;
-    background: rgb(3, 226, 226);
-    border: 1px solid #023135;
+    background:  #23a6d5;
+    border: 2px solid #023135;
+    box-shadow: inset 0px 0px 9px 3px rgb(35, 48, 241);
     user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -398,7 +439,7 @@ aside ul {
     height: 60px;
     margin: 10px;
     background: rgba(0, 0, 0, 0.15);
-    color: #363b5e;
+    color: white;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
@@ -422,7 +463,7 @@ aside ul {
 #prize-display {
     grid-area: content;
     padding: 2rem;
-    background-color: rgb(112, 199, 236);
+    /* background-color: rgb(112, 199, 236); */
     z-index:1;
 }
 /* 
@@ -434,40 +475,54 @@ aside ul {
 #prize-header{
     text-align:center;
     font-style: italic;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 28px;
 }
 #prize-p{
     text-align:center;
     font-style:italic;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
 }
 #prize-list{
     text-align:center;
     padding-left: 100px;
+    /* padding-right:100px; */
 }
 
   .prize-cards {
-    display: flex;
+    /* display: flex; */
     /* display:block; */
     float:left;
     flex-wrap: wrap;
     list-style: none;
     margin: 1rem 0 0 0;
     padding: 0;
+    /* marker: none; */
   }
   
   .prize-card {
     flex: 0 1 calc(25% - 1em);
     margin: 1rem 0.5em;
-    display: flex;
+    /* display: flex; */
     text-align:center;
     flex-direction: column;
     border-style:double;
     padding:15px;
     /* overflow: hidden; */
-    background-color: rgb(7 176 241 / 50%);
+    /* background-color: rgb(7 176 241 / 50%); */
+    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.tNSu0vbFsw4cB5b73yUcAAHaE8%26pid%3DApi&f=1);
+    /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd1yn1kh78jj1rr.cloudfront.net%2Fimage%2Fthumbnail%2FrDtN98Qoishumwih%2Fblueandgraypattern_8-091815-119_thumb.jpg&f=1&nofb=1); */
+    /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.0vRGl7OYFWIMtMPdYm7mWQHaD5%26pid%3DApi&f=1); */
+    /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.thMkzNUYNOWabuJgtJjupgHaH6%26pid%3DApi&f=1); */
     animation: enter 0.25s ease-out;
     -webkit-box-shadow: var(--box-shadow);
     -moz-box-shadow: var(--box-shadow);
     box-shadow: var(--box-shadow);
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    
   }
   
   @keyframes enter {
@@ -558,6 +613,7 @@ aside ul {
 
   .container {
     max-width: 90%;
+    /* max-height: 500px */
     margin: 0 auto;
   }
   

@@ -9,7 +9,6 @@ const renderUserProfile = (userObj) => {
     username.textContent = `Username: ${userObj.username}`
     points.textContent = `Points: ${userObj.totalPoints}`
     avatar.src = userObj.avatar
-    // console.log(userObj)
     deleteButton.addEventListener("click", deleteUser)
     userPrizeList.innerHTML= ""
     currentUser.prizes.forEach(renderBought)
@@ -34,7 +33,7 @@ fetch(`${URL}/users/${currentUser.id}`, {
 }
 
 const renderBought = (prize) => {
-    // debugger        
+       
   const li = document.createElement("li")
   li.classList.add("prize-card")
   li.innerHTML = `

@@ -1,6 +1,7 @@
 
 function memoryJS(){
-
+    
+    gameTitle.textContent = "Flip!"
     let clickedCard 
 
 

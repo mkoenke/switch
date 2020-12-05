@@ -16,6 +16,8 @@ const userPrizeList = document.querySelector("#user-prize-list")
 const contentDisplay = document.querySelector("#content-display")
 const prizeHeader = document.querySelector("#prize-header")
 const prizeP = document.querySelector("#prize-p")
+const aboutDisplay = document.querySelector("#about-display")
+const gameTitle = document.querySelector("#game-title")
 
 
 //application state
@@ -61,7 +63,9 @@ function handleNavBarClicks(event) {
         // contentDisplay.style.display = "none"
         gameDisplay.innerHTML = ""
         prizeDisplay.innerHTML = ""
-        // timer.style.display ="none"
+        aboutDisplay.style.display = "none"
+        gameTitle.style.display = "none"
+        timer.style.display ="none"
         startButton.style.display = "none"
         aside.style.display = "none"
         document.querySelector(".pin-login__text").value = ""
@@ -73,9 +77,11 @@ function handleNavBarClicks(event) {
         // elementPeekaboo(timer)
         // elementPeekaboo(startButton)
         gameDisplay.style.display = "block"
+        gameTitle.style.display = "block"
         timer.style.display = "block"
         startButton.style.display = "block"
         prizeDisplay.style.display = "none"
+        aboutDisplay.style.display = "none"
         loadAndSetGame()
         console.log(event.target)
     } else if (event.target.id === "memory" && !currentUser){
@@ -84,7 +90,9 @@ function handleNavBarClicks(event) {
         timer.style.display ="none"
         startButton.style.display = "none"
         prizeDisplay.style.display = "none"
-        gameDisplay.style.display = "block"
+        gameDisplay.style.display = "none"
+        gameTitle.style.display = "none"
+        aboutDisplay.style.display = "block"
         loadAbout()
         console.log(event.target)
     } else if (event.target.id === "prizes" && currentUser){
@@ -92,6 +100,8 @@ function handleNavBarClicks(event) {
         startButton.style.display = "none"
         // gameDisplay.innerHTML = ""
         gameDisplay.style.display = "none"
+        gameTitle.style.display = "none"
+        aboutDisplay.style.display = "none"
         // prizeDisplay.innerHTML = ""
         prizeDisplay.style.display = "block"
         prizeHeader.style.display = "block"
@@ -108,9 +118,7 @@ function handleNavBarClicks(event) {
 
 /// display all prizes
 function displayAllPrizes(){
-    // debugger
-
-
+   
     let array1 = []
     let array2 = []
     
@@ -123,13 +131,7 @@ function displayAllPrizes(){
 
     for (i=0; i< leftOverPrizeIds.length; i++){
         prizesToBeRendered.push(allPrizes.find(prize => prize.id === leftOverPrizeIds[i]))
-        // currentUser.prizes.forEach(userPrize =>{
-       
-        //     if(allPrizes[i].id !== userPrize.id) {
-        //         leftOverPrizes.push(allPrizes[i])
-        //         // allPrizes.splice(i, 1)
-        //     }
-        // })
+     
     }
     
     prizesToBeRendered.forEach(prizeObj => {
@@ -231,10 +233,12 @@ function updateTotalPoints(){
 /// load about page
 
 function loadAbout(){
-    gameDisplay.innerHTML = `<h1>Welcome to</h1>
+    aboutDisplay.innerHTML = `<h1>Welcome to</h1>
     <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimage.remarqueble.com%2Fuspto%2F85324748&f=1&nofb=1" alt="">
-    <h2>Play each game as best you can try ti beat the clock! <br>
+    <h2>Play each game as best you can, and try to beat the clock! <br>
          The faster you play, the more points you get!</h2>
+         <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.P-26ZmRveihJNRAoWvnRbAHaE7%26pid%3DApi&f=1" alt="">
+    
      `
 
 }
@@ -371,7 +375,7 @@ function handleForm(event) {
         if (user.username === userObj.username) {
             currentUser = user
             const div = document.querySelector("#error-message")
-            // div.innerHTML = ""
+           
             div.textContent = "Please enter your PIN"
         } else {
             checkedUsers++
@@ -381,7 +385,7 @@ function handleForm(event) {
         alert("Can not find username!")
         event.target.reset()
     }
-    event.target.reset()
+    // event.target.reset()
 
 
 }
@@ -398,7 +402,7 @@ function closeLoginForm() {
 document.addEventListener("click", outsideFormClick)
 
 function outsideFormClick(event) {
-    // console.log(event.target)
+   
     if (event.target === modal) {
         modal.style.display = "none"
     } else if (event.target === signupModal) {
