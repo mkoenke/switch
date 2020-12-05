@@ -17,7 +17,7 @@ button {
 
 body {
     margin: 0;
-    background: linear-gradient(-45deg, #94d7f7, #65aef3, #2dc1f7, #bdecf8);
+    background: linear-gradient(-45deg, #94d7f7, #30a9fa, #2dc1f7, #bdecf8);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
 }
