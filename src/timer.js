@@ -20,19 +20,34 @@ function getTimer (){
             }
 
             timer.textContent = parseFloat(timer.textContent).toPrecision(decimal)
-            
-            if (parseFloat(timer.textContent) === 0 || gameOver){
+
+            if (parseFloat(timer.textContent) === 0 || gameOver) {
                 preventClick = true
                 clearInterval(interval)
+                activeTimer = false
+                if (parseFloat(timer.textContent) === 0) {
+                    endGame("lose")
+                }
             }
         }, 100)
     }
-
     startButton.addEventListener("click", () => {
-        startTimer()
+        if (!activeTimer) {
+            startTimer()
+            activeTimer = true
+        }
+        
         startButton.style.display = "none"
-        preventClick = false
-    })   
+
+        inGame = true
+
+        if (currentGame.title === "memory") {
+            preventClick = false
+        } else if (currentGame.title === "sliding") {
+            shuffle()
+            preventClick = false
+        }
+    })
 
     renderTimerForGame(currentGame)
 }

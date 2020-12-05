@@ -289,12 +289,6 @@ aside li {
     max-width: 80%;
 }
 
-/* Avatar Image */
-#avatar img {
-    border-radius: 50%;
-    padding: 5px;
-    width: 130px;
-  }
 
   /* Memory Game */
 #game-title{

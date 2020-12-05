@@ -28,6 +28,10 @@ let allGames
 let currentGame
 let currentGameSession
 
+let inGame = false
+
+let activeTimer = false
+
 let gameOver = false
 let preventClick = true
 let correctCombos = 0
@@ -37,11 +41,28 @@ let allPrizes
 
 //aside peekaboo
 function elementPeekaboo(element) {
-        if (element.style.display === "none") {
+    if (element.style.display === "none") {
         element.style.display = "block";
     } else if (currentUser === null) {
         element.style.display = "none";
     }
+}
+
+// end game
+
+function endGame(condition) {
+    gameOver = true
+    preventClick = true
+    inGame = false
+    if (condition === "win") {
+        alert("You win!")
+    } else {
+        alert("Better luck next time!")
+    }
+    currentGameSession.score = parseInt(timer.textContent)
+    postScore()
+    timer.style.display = "none"
+    loadAbout()
 }
 
 
@@ -50,6 +71,7 @@ function elementPeekaboo(element) {
 navBar.addEventListener("click", handleNavBarClicks)
 
 function handleNavBarClicks(event) {
+    if (inGame) return;
 
     if (event.target.id === "login" && currentUser === null) {
         document.getElementById('modal').style.display = 'block'
@@ -65,29 +87,17 @@ function handleNavBarClicks(event) {
         prizeDisplay.innerHTML = ""
         aboutDisplay.style.display = "none"
         gameTitle.style.display = "none"
-        timer.style.display ="none"
+        timer.style.display = "none"
         startButton.style.display = "none"
         aside.style.display = "none"
         document.querySelector(".pin-login__text").value = ""
         currentPin = null
-    } else if (event.target.id === "memory" && currentUser) {
-        // loadGame("memory")
-        currentGame = allGames[0]
-        // elementPeekaboo(gameDisplay)
-        // elementPeekaboo(timer)
-        // elementPeekaboo(startButton)
-        gameDisplay.style.display = "block"
-        gameTitle.style.display = "block"
-        timer.style.display = "block"
-        startButton.style.display = "block"
-        prizeDisplay.style.display = "none"
-        aboutDisplay.style.display = "none"
-        loadAndSetGame()
-        console.log(event.target)
-    } else if (event.target.id === "memory" && !currentUser){
+    } else if (event.target.id === "memory" || event.target.id === "sliding" && currentUser) {
+        loadAndSetGame(event.target.id)
+    } else if (event.target.id === "memory" || event.target.id === "sliding" && !currentUser) {
         alert("Please Log In!")
-    } else if (event.target.id === "about"){
-        timer.style.display ="none"
+    } else if (event.target.id === "about") {
+        timer.style.display = "none"
         startButton.style.display = "none"
         prizeDisplay.style.display = "none"
         gameDisplay.style.display = "none"
@@ -95,8 +105,8 @@ function handleNavBarClicks(event) {
         aboutDisplay.style.display = "block"
         loadAbout()
         console.log(event.target)
-    } else if (event.target.id === "prizes" && currentUser){
-        timer.style.display ="none"
+    } else if (event.target.id === "prizes" && currentUser) {
+        timer.style.display = "none"
         startButton.style.display = "none"
         // gameDisplay.innerHTML = ""
         gameDisplay.style.display = "none"
@@ -111,17 +121,17 @@ function handleNavBarClicks(event) {
         displayAllPrizes()
 
 
-    } else if (event.target.id === "prizes" && !currentUser){
+    } else if (event.target.id === "prizes" && !currentUser) {
         alert("Please Log In!")
     }
 }
 
 /// display all prizes
-function displayAllPrizes(){
-   
+function displayAllPrizes() {
+
     let array1 = []
     let array2 = []
-    
+
     let leftOverPrizeIds = []
     array1 = allPrizes.map(prize => prize.id)
     array2 = currentUser.prizes.map(prize => prize.id)
@@ -129,25 +139,36 @@ function displayAllPrizes(){
     let prizesToBeRendered = []
 
 
-    for (i=0; i< leftOverPrizeIds.length; i++){
+    for (i = 0; i < leftOverPrizeIds.length; i++) {
         prizesToBeRendered.push(allPrizes.find(prize => prize.id === leftOverPrizeIds[i]))
-     
+
     }
-    
+
     prizesToBeRendered.forEach(prizeObj => {
         let prizeComponent = new PrizeComponent(prizeObj)
-        prizeComponent.render(prizeList)   
+        prizeComponent.render(prizeList)
     })
- 
+
 }
 
 
 // start game function
 
-function loadAndSetGame(){
-    loadGame()
+function loadAndSetGame(gameName) {
+    currentGame = allGames.find(game => game.title === gameName)
+    gameDisplay.style.display = "block"
+    gameTitle.style.display = "block"
+    timer.style.display = "block"
+    startButton.style.display = "block"
+    prizeDisplay.style.display = "none"
+    aboutDisplay.style.display = "none"
+    loadGame(gameName)
+    if (gameName === "memory") {
+        memoryJS()
+    } else if (gameName === "sliding") {
+        slidingJS()
+    }
     getTimer()
-    memoryJS()
     fetchGameSession()
     gameOver = false
     preventClick = true
@@ -157,97 +178,97 @@ function loadAndSetGame(){
 
 // create game session
 
-function fetchGameSession (){
+function fetchGameSession() {
     const newGS = {
         user_id: currentUser.id,
         game_id: currentGame.id
     }
     console.log(newGS)
     fetch(`${URL}/game_sessions`, {
-    method: 'POST', 
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(newGS),
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newGS),
     })
-    .then(response => response.json())
-    .then(returnedGS => {
-        console.log('New Game Session:', returnedGS);
-        currentGameSession = returnedGS
-    })
-    .catch((error) => {
-    console.error('Error:', error);
-    });
-        
+        .then(response => response.json())
+        .then(returnedGS => {
+            console.log('New Game Session:', returnedGS);
+            currentGameSession = returnedGS
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
 }
 
 //post score when finished
-function postScore(){
+function postScore() {
 
     fetch(`${URL}/game_sessions/${currentGameSession.id}`, {
-    method: 'PATCH', 
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(currentGameSession),
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(currentGameSession),
     })
-    .then(response => response.json())
-    .then(updatedGameSession => {
-    currentUser.totalPoints = currentUser.totalPoints + updatedGameSession.score
-  
-    updateTotalPoints()  
-    console.log('Updated game session at end of game:', updatedGameSession);
-    })
-    .catch((error) => {
-    console.error('Error:', error);
-    });
+        .then(response => response.json())
+        .then(updatedGameSession => {
+            currentUser.totalPoints = currentUser.totalPoints + updatedGameSession.score
+
+            updateTotalPoints()
+            console.log('Updated game session at end of game:', updatedGameSession);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
 
 
 /// update total points and display on profile
 
-function updateTotalPoints(){
+function updateTotalPoints() {
     const updatedTotalPoints = {
         total_points: currentUser.totalPoints
     }
     fetch(`${URL}/users/${currentUser.id}`, {
-        method: 'PATCH', 
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(updatedTotalPoints),
-        })
+    })
         .then(response => response.json())
         .then(returnedUpdatedUser => {
-        currentUser = returnedUpdatedUser
-        renderUserProfile(returnedUpdatedUser)
-        console.log(returnedUpdatedUser);
+            currentUser = returnedUpdatedUser
+            renderUserProfile(returnedUpdatedUser)
+            console.log(returnedUpdatedUser);
         })
         .catch((error) => {
-        console.error('Error:', error);
+            console.error('Error:', error);
         });
 }
 
 
 /// load about page
 
-function loadAbout(){
+function loadAbout() {
     aboutDisplay.innerHTML = `<h1>Welcome to</h1>
     <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimage.remarqueble.com%2Fuspto%2F85324748&f=1&nofb=1" alt="">
     <h2>Play each game as best you can, and try to beat the clock! <br>
-         The faster you play, the more points you get!</h2>
-         <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.P-26ZmRveihJNRAoWvnRbAHaE7%26pid%3DApi&f=1" alt="">
-    
-     `
+            The faster you play, the more points you get!</h2>
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.P-26ZmRveihJNRAoWvnRbAHaE7%26pid%3DApi&f=1" alt="">
+
+                `
 
 }
 
 ///load memory game
 
-function loadGame(){
-   
-    gameDisplay.innerHTML = `<div class="memory-board"> 
+function loadGame(gameName) {
+    if (gameName === "memory") {
+        gameDisplay.innerHTML = `<div class="memory-board"> 
     <div class="row">
         <div class="card color-hidden" ></div>
         <div class="card color-hidden" ></div>
@@ -297,7 +318,25 @@ function loadGame(){
         <div class="card color-hidden" ></div>
     </div>
 </div>`
-
+    } else if (gameName === "sliding") {
+        gameDisplay.innerHTML = `<div id="table" style="display: inline-block;">
+        <div id="row1" style="display: table-row;">
+            <div id="cell11" class="tile1" data-row="1" data-col="1"></div>
+            <div id="cell12" class="tile2" data-row="1" data-col="2"></div>
+            <div id="cell13" class="tile3" data-row="1" data-col="3"></div>
+        </div>
+        <div id="row2" style="display: table-row;">
+            <div id="cell21" class="tile4" data-row="2" data-col="1"></div>
+            <div id="cell22" class="tile5" data-row="2" data-col="2"></div>
+            <div id="cell23" class="tile6" data-row="2" data-col="3"></div>
+        </div>
+        <div id="row3" style="display: table-row;">
+            <div id="cell31" class="tile7" data-row="3" data-col="1"></div>
+            <div id="cell32" class="tile8" data-row="3" data-col="2"></div>
+            <div id="cell33" class="tile9" data-row="3" data-col="3"></div>
+        </div>
+    </div>`
+    }
 }
 
 const signupModal = document.getElementById('signupmodal')
@@ -350,9 +389,9 @@ function handleSignup(event) {
 
                 console.error('Error:', error);
             });
-        } else {
-            alert("you need a uniqe username!")
-            event.target.reset()
+    } else {
+        alert("you need a uniqe username!")
+        event.target.reset()
     }
 
 }
@@ -361,7 +400,7 @@ const modal = document.getElementById('modal')
 const cancelBtn = modal.querySelector(".cancelbtn")
 const loginForm = modal.querySelector("form")
 
-      
+
 loginForm.addEventListener("submit", handleForm)
 
 function handleForm(event) {
@@ -375,13 +414,13 @@ function handleForm(event) {
         if (user.username === userObj.username) {
             currentUser = user
             const div = document.querySelector("#error-message")
-           
+
             div.textContent = "Please enter your PIN"
         } else {
             checkedUsers++
         }
     })
-    if (checkedUsers === allUsers.length){
+    if (checkedUsers === allUsers.length) {
         alert("Can not find username!")
         event.target.reset()
     }
@@ -389,7 +428,7 @@ function handleForm(event) {
 
 
 }
-      
+
 
 //cancel button on login form
 cancelBtn.addEventListener("click", closeLoginForm)
@@ -402,13 +441,44 @@ function closeLoginForm() {
 document.addEventListener("click", outsideFormClick)
 
 function outsideFormClick(event) {
-   
+
     if (event.target === modal) {
         modal.style.display = "none"
     } else if (event.target === signupModal) {
         signupModal.style.display = "none"
     }
 }
+
+/* adding method to array to be able to compare between two arrays */
+// Warn if overriding existing method
+if (Array.prototype.equals)
+    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+// attach the .equals method to Array's prototype to call it on any array
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
+
+    // compare lengths - can save a lot of time
+    if (this.length != array.length)
+        return false;
+
+    for (let i = 0, l = this.length; i < l;) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;
+        }
+        else if (this[i] != array[i]) {
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;
+        }
+    }
+    return true;
+}
+// Hide method from for-in loops
+Object.defineProperty(Array.prototype, "equals", { enumerable: false });
 
 
 ///initialize
@@ -426,7 +496,7 @@ function initialize() {
             allGames = gamesArray
             console.log(gamesArray)
         })
-        fetch(`${URL}/prizes`)
+    fetch(`${URL}/prizes`)
         .then(r => r.json())
         .then(prizeArray => {
             allPrizes = prizeArray
