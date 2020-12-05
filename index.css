@@ -55,8 +55,14 @@ main {
     grid-area: content;
     width: fit-content;
     padding: 15px;
-    border-radius: 5px;
-    border: 5px solid rgb(248, 249, 250);
+    color: #e9e8f0;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px #000000;
+    
+    /* border-radius: 5px; */
+    box-shadow: inset 0px 0px 9px 5px white;
+    box-sizing: border-box;
+    /* border: 5px solid rgb(248, 249, 250); */
 }
 
 /* Add a black background color to the top navigation */
@@ -160,6 +166,7 @@ aside ul#profile {
 
 aside li {
     list-style-type: none;
+    display:inline-block
 }
 
 
@@ -301,7 +308,8 @@ text-align:center;
     display:inline-block;
     width: 100px;
     height: 100px;
-    background-color: white;
+    /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.xKloyZ6p5LdUKNY4K2TspwHaE8%26pid%3DApi&f=1); */
+    background-color:  rgb(191, 223, 250);
     cursor:pointer;
 }
 .card:hover{
@@ -363,7 +371,7 @@ text-align:center;
     background-color: royalblue;
 }
 .color-hidden {
-    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.xKloyZ6p5LdUKNY4K2TspwHaE8%26pid%3DApi&f=1)
+    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.xKloyZ6p5LdUKNY4K2TspwHaE8%26pid%3DApi&f=1);
     /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.JjEaq3vc0uw8rxfC_cS_AwHaE8%26pid%3DApi&f=1) */
     /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.GAGKkuRmAYc6NbgksXCZ6gHaHa%26pid%3DApi&f=1); */
     /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP._QK9B8MNTJppHo3BKcYAmQHaE8%26pid%3DApi&f=1); */
@@ -574,8 +582,13 @@ text-align:center;
   
   .prize-card .button.buy-button {
     background-color: var(--theme-primary);
-    color: var(--alt-font-color);
-    width: 100%;
+    /* color: var(--alt-font-color); */
+    color: #e9e8f0;
+    /* font-size: 24px; */
+    text-shadow: 2px 2px 4px #000000;
+    box-shadow: inset 0px 0px 9px 5px white;
+    width: 70%;
+    border-radius: 0%;
   }
   
   @media (min-width: 400px) and (max-width: 699px) {
@@ -599,12 +612,17 @@ text-align:center;
     }
   }
 
-  .button {
+  button {
     cursor: pointer;
     font-size: 0.8rem;
-    font-weight: 700;
+    /* font-weight: 700; */
     padding: 0.75em 1.5em;
     transition: opacity 0.2s ease;
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 9px 5px white;
+
+    /* color: #e9e8f0;
+    text-shadow: 2px 2px 4px #000000; */
   }
   
   .button:hover {
