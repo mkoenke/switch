@@ -1,10 +1,12 @@
+
 .tile1, .tile2, .tile3, .tile4, .tile5, .tile6, .tile7, .tile8, .tile9 {
     display: table-cell;
     width: 120px;
     height: 120px;
     border: 1px solid white;
-    background: url(https://www.101computing.net/wp/wp-content/uploads/flower.png); 
+    background: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.47azyLQcC4aoaFuB5D8lPQHaDw%26pid%3DApi&f=1); 
     cursor: pointer;
+  
   }
   
   .tile1 {background-position: left top;}
