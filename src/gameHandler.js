@@ -1,4 +1,4 @@
-// end game
+// end of game
 
 function endGame(condition) {
     gameOver = true
@@ -11,9 +11,11 @@ function endGame(condition) {
     }
     currentGameSession.score = parseInt(timer.textContent)
     postScore()
-    timer.style.display = "none"
-    gameDisplay.style.display = "none"
-    aboutDisplay.style.display = "block"
+    setDisplay([gameTitle, timer, startButton, gameDisplay], "none")
+    setDisplay([aboutDisplay], "block")
+    // timer.style.display = "none"
+    // gameDisplay.style.display = "none"
+    // aboutDisplay.style.display = "block"
     loadAbout()
 }
 
@@ -21,12 +23,14 @@ function endGame(condition) {
 
 function loadAndSetGame(gameName) {
     currentGame = allGames.find(game => game.title === gameName)
-    gameDisplay.style.display = "block"
-    gameTitle.style.display = "block"
-    timer.style.display = "block"
-    startButton.style.display = "block"
-    prizeDisplay.style.display = "none"
-    aboutDisplay.style.display = "none"
+    setDisplay([gameTitle, timer, startButton, gameDisplay], "block")
+    setDisplay([prizeDisplay, aboutDisplay], "none")
+    // gameDisplay.style.display = "block"
+    // gameTitle.style.display = "block"
+    // timer.style.display = "block"
+    // startButton.style.display = "block"
+    // prizeDisplay.style.display = "none"
+    // aboutDisplay.style.display = "none"
     loadGame(gameName)
     if (gameName === "memory") {
         memoryJS()
