@@ -68,12 +68,12 @@ function handleNavBarClicks(event) {
         currentUser = null
         gameDisplay.innerHTML = ""
         prizeDisplay.innerHTML = ""
-        setDisplay([aboutDisplay, gameTitle, timer, startButton, aside], "none")
+        setDisplay([aboutDisplay, gameTitle, timer, startButton, playerProfile], "none")
         document.querySelector(".pin-login__text").value = ""
         currentPin = null
     } else if (event.target.id === "memory" && currentUser || event.target.id === "sliding" && currentUser) {
         loadAndSetGame(event.target.id)
-    } else if (event.target.id === "memory" && !currentUser || event.target.id === "sliding" && !currentUser) {
+    } else if (event.target.id === "memory" && !currentUser || event.target.id === "sliding" && !currentUser || event.target.id === "prizes" && !currentUser) {
         alert("Please Log In!")
     } else if (event.target.id === "about") {
         setDisplay([gameTitle, timer, startButton, prizeDisplay, gameDisplay], "none")
@@ -84,8 +84,6 @@ function handleNavBarClicks(event) {
         prizeList.innerHTML = " "
         setDisplay([prizeDisplay, prizeHeader, prizeP, prizeList], "block")
         displayAllPrizes()
-    } else if (event.target.id === "prizes" && !currentUser) {
-        alert("Please Log In!")
     }
 }
 
@@ -201,6 +199,7 @@ function initialize() {
             allPrizes = prizeArray
             console.log(prizeArray)
         })
+    loadAbout()
 }
 
 initialize()

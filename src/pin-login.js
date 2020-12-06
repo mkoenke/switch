@@ -71,7 +71,6 @@ function getPinLogin(){
                 
                 if (parseInt(this.value) === correctPin){
                     console.log(this)
-                    aside.style.display = "block"
                     playerProfile.style.display = "block"
                     renderUserProfile(currentUser)
                     modal.style.display = "none"
