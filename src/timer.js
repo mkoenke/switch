@@ -36,11 +36,8 @@ function getTimer (){
             startTimer()
             activeTimer = true
         }
-        
         startButton.style.display = "none"
-
         inGame = true
-
         if (currentGame.title === "memory") {
             preventClick = false
         } else if (currentGame.title === "sliding") {
@@ -48,6 +45,5 @@ function getTimer (){
             preventClick = false
         }
     })
-
     renderTimerForGame(currentGame)
 }

@@ -71,9 +71,9 @@ function handleNavBarClicks(event) {
         setDisplay([aboutDisplay, gameTitle, timer, startButton, aside], "none")
         document.querySelector(".pin-login__text").value = ""
         currentPin = null
-    } else if (event.target.id === "memory" || event.target.id === "sliding" && currentUser) {
+    } else if (event.target.id === "memory" && currentUser || event.target.id === "sliding" && currentUser) {
         loadAndSetGame(event.target.id)
-    } else if (event.target.id === "memory" || event.target.id === "sliding" && !currentUser) {
+    } else if (event.target.id === "memory" && !currentUser || event.target.id === "sliding" && !currentUser) {
         alert("Please Log In!")
     } else if (event.target.id === "about") {
         setDisplay([gameTitle, timer, startButton, prizeDisplay, gameDisplay], "none")
