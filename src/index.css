@@ -489,8 +489,11 @@ text-align:center;
 }
 #prize-list{
     text-align:center;
-    padding-left: 100px;
-    /* padding-right:100px; */
+    padding: 0;
+}
+
+#user-prize-list {
+  padding: 0;
 }
 
   .prize-cards {
