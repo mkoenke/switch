@@ -4,9 +4,8 @@
     width: 120px;
     height: 120px;
     border: 1px solid white;
-    background: url(images/coloredBlocks.jpg); 
+    background: url(images/Webp.net-resizeimage.png) white; 
     cursor: pointer;
-  
   }
   
   .tile1 {background-position: left top;}
