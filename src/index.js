@@ -1,7 +1,5 @@
 URL = "http://localhost:3000"
 
-//-----------------------------------------------------------
-
 //dom elements
 const navBar = document.querySelector(".topnav")
 const loginDiv = document.querySelector("#login")
@@ -33,11 +31,8 @@ let currentUser = null
 let allGames
 let currentGame
 let currentGameSession
-
 let inGame = false
-
 let activeTimer = false
-
 let gameOver = false
 let preventClick = true
 let correctCombos = 0
@@ -45,21 +40,21 @@ let cheat = false
 let currentPin
 let allPrizes
 
-//aside peekaboo
-function elementPeekaboo(element) {
-    if (element.style.display === "none") {
-        element.style.display = "block";
-    } else if (currentUser === null) {
-        element.style.display = "none";
-    }
-}
 
-
-
+// event listeners
+navBar.addEventListener("click", handleNavBarClicks)
+signupCancelBtn.addEventListener("click", closeSignupForm)
+loginForm.addEventListener("submit", handleForm)
+cancelBtn.addEventListener("click", closeLoginForm)
+document.addEventListener("click", outsideFormClick)
+signupForm.addEventListener("submit", handleSignup)
 
 //delegation on nav bar
-
-navBar.addEventListener("click", handleNavBarClicks)
+function setDisplay(args, style) {
+    args.forEach((element) => {
+        element.style.display = `${style}`
+    })
+}
 
 function handleNavBarClicks(event) {
     if (inGame) return;
@@ -68,19 +63,12 @@ function handleNavBarClicks(event) {
         document.getElementById('modal').style.display = 'block'
         getPinLogin()
     } else if (event.target.id === "signup" && currentUser === null) {
-        console.log(event.target)
         document.getElementById('signupmodal').style.display = 'block'
     } else if (event.target.id === "logout" && currentUser) {
         currentUser = null
-        elementPeekaboo(playerProfile)
-        // contentDisplay.style.display = "none"
         gameDisplay.innerHTML = ""
         prizeDisplay.innerHTML = ""
-        aboutDisplay.style.display = "none"
-        gameTitle.style.display = "none"
-        timer.style.display = "none"
-        startButton.style.display = "none"
-        aside.style.display = "none"
+        setDisplay([aboutDisplay, gameTitle, timer, startButton, aside], "none")
         document.querySelector(".pin-login__text").value = ""
         currentPin = null
     } else if (event.target.id === "memory" || event.target.id === "sliding" && currentUser) {
@@ -88,30 +76,14 @@ function handleNavBarClicks(event) {
     } else if (event.target.id === "memory" || event.target.id === "sliding" && !currentUser) {
         alert("Please Log In!")
     } else if (event.target.id === "about") {
-        timer.style.display = "none"
-        startButton.style.display = "none"
-        prizeDisplay.style.display = "none"
-        gameDisplay.style.display = "none"
-        gameTitle.style.display = "none"
-        aboutDisplay.style.display = "block"
+        setDisplay([gameTitle, timer, startButton, prizeDisplay, gameDisplay], "none")
+        setDisplay([aboutDisplay], "block")
         loadAbout()
-        console.log(event.target)
     } else if (event.target.id === "prizes" && currentUser) {
-        timer.style.display = "none"
-        startButton.style.display = "none"
-        // gameDisplay.innerHTML = ""
-        gameDisplay.style.display = "none"
-        gameTitle.style.display = "none"
-        aboutDisplay.style.display = "none"
-        // prizeDisplay.innerHTML = ""
-        prizeDisplay.style.display = "block"
-        prizeHeader.style.display = "block"
-        prizeP.style.display = "block"
+        setDisplay([gameTitle, timer, startButton, aboutDisplay, gameDisplay], "none")
         prizeList.innerHTML = " "
-        prizeList.style.display = "block"
+        setDisplay([prizeDisplay, prizeHeader, prizeP, prizeList], "block")
         displayAllPrizes()
-
-
     } else if (event.target.id === "prizes" && !currentUser) {
         alert("Please Log In!")
     }
@@ -123,25 +95,16 @@ function loadAbout() {
     aboutDisplay.innerHTML = `<h1>Welcome to</h1>
     <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimage.remarqueble.com%2Fuspto%2F85324748&f=1&nofb=1" alt="">
     <h2>Play each game as best you can, and try to beat the clock! <br>
-            The faster you play, the more points you get!</h2>
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.P-26ZmRveihJNRAoWvnRbAHaE7%26pid%3DApi&f=1" alt="">
-
-                `
-
+    The faster you play, the more points you get!</h2>
+    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.P-26ZmRveihJNRAoWvnRbAHaE7%26pid%3DApi&f=1" alt="">`
 }
-
-
-signupCancelBtn.addEventListener("click", closeSignupForm)
 
 function closeSignupForm() {
     signupModal.style.display = 'none'
 }
 
-signupForm.addEventListener("submit", handleSignup)
-
 function handleSignup(event) {
     event.preventDefault()
-
     const usernames = []
     allUsers.forEach(user => {
         usernames.push(user.username)
@@ -166,30 +129,21 @@ function handleSignup(event) {
             .then(returnedUserObj => {
                 currentUser = returnedUserObj
                 renderUserProfile(currentUser)
-                elementPeekaboo(playerProfile)
-                aside.style.display = "block"
+                setDisplay([aside, playerProfile], "block")
                 event.target.reset()
                 signupModal.style.display = "none"
                 console.log('Success New User:', returnedUserObj);
             })
             .catch((error) => {
-
                 console.error('Error:', error);
             });
     } else {
         alert("you need a uniqe username!")
         event.target.reset()
     }
-
 }
 
-
-
-
-loginForm.addEventListener("submit", handleForm)
-
 function handleForm(event) {
-
     event.preventDefault()
     const userObj = {
         username: event.target.username.value
@@ -199,7 +153,6 @@ function handleForm(event) {
         if (user.username === userObj.username) {
             currentUser = user
             const div = document.querySelector("#error-message")
-
             div.textContent = "Please enter your PIN"
         } else {
             checkedUsers++
@@ -209,32 +162,23 @@ function handleForm(event) {
         alert("Can not find username!")
         event.target.reset()
     }
-    // event.target.reset()
-
-
 }
 
-
 //cancel button on login form
-cancelBtn.addEventListener("click", closeLoginForm)
 
 function closeLoginForm() {
     modal.style.display = 'none'
 }
 
 // When the user clicks anywhere outside of the modal, close it
-document.addEventListener("click", outsideFormClick)
 
 function outsideFormClick(event) {
-
     if (event.target === modal) {
         modal.style.display = "none"
     } else if (event.target === signupModal) {
         signupModal.style.display = "none"
     }
 }
-
-
 
 ///initialize
 
@@ -258,4 +202,5 @@ function initialize() {
             console.log(prizeArray)
         })
 }
+
 initialize()

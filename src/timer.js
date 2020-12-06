@@ -2,7 +2,6 @@
 function getTimer (){
  
     const renderTimerForGame = (gameInfo) => {
-        // debugger
         timer.textContent = gameInfo.time
     }
 
