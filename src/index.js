@@ -80,7 +80,8 @@ function handleNavBarClicks(event) {
     } else if (event.target.id === "prizes" && currentUser) {
         setDisplay([gameTitle, timer, startButton, aboutDisplay, gameDisplay], "none")
         prizeList.innerHTML = " "
-        setDisplay([prizeDisplay, prizeHeader, prizeP, prizeList], "block")
+        setDisplay([prizeHeader, prizeP, prizeList], "block")
+        setDisplay([prizeDisplay], "flex")
         displayAllPrizes()
     }
 }
