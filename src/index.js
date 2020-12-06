@@ -22,10 +22,10 @@ const signupCancelBtn = signupModal.querySelector(".cancelbtn")
 const modal = document.getElementById('modal')
 const cancelBtn = modal.querySelector(".cancelbtn")
 const loginForm = modal.querySelector("form")
-
+const pinLogin = document.querySelector(".pin-login")
+const passwordMessageDiv = document.querySelector("#password-message")
 
 //application state
-
 let allUsers
 let currentUser = null
 let allGames
@@ -39,7 +39,6 @@ let correctCombos = 0
 let cheat = false
 let currentPin
 let allPrizes
-
 
 // event listeners
 navBar.addEventListener("click", handleNavBarClicks)
@@ -58,17 +57,16 @@ function setDisplay(args, style) {
 
 function handleNavBarClicks(event) {
     if (inGame) return;
-
     if (event.target.id === "login" && currentUser === null) {
         document.getElementById('modal').style.display = 'block'
-        getPinLogin()
     } else if (event.target.id === "signup" && currentUser === null) {
         document.getElementById('signupmodal').style.display = 'block'
     } else if (event.target.id === "logout" && currentUser) {
         currentUser = null
         gameDisplay.innerHTML = ""
         prizeDisplay.innerHTML = ""
-        setDisplay([aboutDisplay, gameTitle, timer, startButton, playerProfile], "none")
+        loginForm.reset()
+        setDisplay([aboutDisplay, gameTitle, timer, startButton, playerProfile, pinLogin, passwordMessageDiv], "none")
         document.querySelector(".pin-login__text").value = ""
         currentPin = null
     } else if (event.target.id === "memory" && currentUser || event.target.id === "sliding" && currentUser) {
@@ -89,7 +87,6 @@ function handleNavBarClicks(event) {
 }
 
 /// load about page
-
 function loadAbout() {
     aboutDisplay.innerHTML = `<h1>Welcome to</h1>
     <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimage.remarqueble.com%2Fuspto%2F85324748&f=1&nofb=1" alt="">
@@ -98,6 +95,7 @@ function loadAbout() {
     <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.P-26ZmRveihJNRAoWvnRbAHaE7%26pid%3DApi&f=1" alt="">`
 }
 
+// sign up form
 function closeSignupForm() {
     signupModal.style.display = 'none'
 }
@@ -137,11 +135,12 @@ function handleSignup(event) {
                 console.error('Error:', error);
             });
     } else {
-        alert("you need a uniqe username!")
+        alert("Please create a unique username!")
         event.target.reset()
     }
 }
 
+//login form
 function handleForm(event) {
     event.preventDefault()
     const userObj = {
@@ -151,8 +150,10 @@ function handleForm(event) {
     allUsers.forEach(function findCurrentUser(user) {
         if (user.username === userObj.username) {
             currentUser = user
-            const div = document.querySelector("#error-message")
-            div.textContent = "Please enter your PIN"
+            passwordMessageDiv.style.display = "block"
+            passwordMessageDiv.textContent = "Please enter your PIN"
+            pinLogin.style.display = "inline-block"
+            getPinLogin()
         } else {
             checkedUsers++
         }
@@ -164,13 +165,11 @@ function handleForm(event) {
 }
 
 //cancel button on login form
-
 function closeLoginForm() {
     modal.style.display = 'none'
 }
 
 // When the user clicks anywhere outside of the modal, close it
-
 function outsideFormClick(event) {
     if (event.target === modal) {
         modal.style.display = "none"
@@ -180,7 +179,6 @@ function outsideFormClick(event) {
 }
 
 ///initialize
-
 function initialize() {
     fetch(`${URL}/users`)
         .then(r => r.json())

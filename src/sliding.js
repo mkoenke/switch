@@ -1,4 +1,7 @@
 function slidingJS() {
+    gameTitle.textContent = "SwitchSlide!"
+
+
     const board = document.querySelector("#table")
     const row1 = board.querySelector("#row1")
     const row2 = board.querySelector("#row2")

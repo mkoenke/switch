@@ -8,7 +8,7 @@
     <script src="./src/timer.js" defer></script>
     <script src="./src/memory.js" defer></script>
     <script src="./src/sliding.js" defer></script>
-    <script src="./src/pin-login.js" defer></script>
+    <script src="./src/pinLogin.js" defer></script>
     <script src="./src/userProfile.js" defer></script>
     <script src="./src/prizeComponent.js" defer></script>
     <link rel="stylesheet" href="./src/sliding.css" />
@@ -61,8 +61,8 @@
             <br>
             <button id="start" style="display:none">START</button>
             <br>
+            <h2 id="game-title" style="display:none"></h2>
             <div id="game-display">
-                <h2 id="game-title" style="display:none">Flip!</h2>
             </div>
         </section> 
         <!-- Prize Display Area -->
@@ -84,10 +84,10 @@
                         <input type="text" name="username" placeholder="Enter Username" value="" required><br><br>
                         <button id="submitbtn">Confirm Username</button>
                         <br><br>
-                        <div id="error-message"></div>
+                        <div id="password-message" style="display:none"></div>
                     </div>    
                     <br>
-                    <div class="pin-login" id="mainPinLogin">
+                    <div class="pin-login" id="mainPinLogin" style="display:none">
                         <input type="pin" readonly class="pin-login__text">
                         <div class="pin-login__numpad">
                         </div>
