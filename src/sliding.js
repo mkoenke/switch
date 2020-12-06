@@ -6,7 +6,6 @@ function slidingJS() {
     const rows = [row1, row2, row3]
     const winningOrder = ["tile1", "tile2", "tile3", "tile4", "tile5", "tile6", "tile7", "tile8", "tile9"]
 
-
     board.addEventListener("click", (event) => {
         clickTile(event.target.dataset.row, event.target.dataset.col)
     })
@@ -83,15 +82,9 @@ function shuffle() {
     //Use nested loops to access each cell of the 3x3 grid
     for (let row = 1; row <= 3; row++) { //For each row of the 3x3 grid
         for (let column = 1; column <= 3; column++) { //For each column in this row
-
             let row2 = Math.floor(Math.random() * 3 + 1); //Pick a random row from 1 to 3
             let column2 = Math.floor(Math.random() * 3 + 1); //Pick a random column from 1 to 3
-
             swapTiles("cell" + row + column, "cell" + row2 + column2); //Swap the look & feel of both cells
         }
     }
 }
-
-
-
-
