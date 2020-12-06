@@ -69,3 +69,28 @@ class PrizeComponent {
         parentElement.append(this.element)
     }
 }
+
+/// display all prizes
+function displayAllPrizes() {
+
+    let array1 = []
+    let array2 = []
+
+    let leftOverPrizeIds = []
+    array1 = allPrizes.map(prize => prize.id)
+    array2 = currentUser.prizes.map(prize => prize.id)
+    leftOverPrizeIds = array1.filter(prizeId => !array2.includes(prizeId))
+    let prizesToBeRendered = []
+
+
+    for (i = 0; i < leftOverPrizeIds.length; i++) {
+        prizesToBeRendered.push(allPrizes.find(prize => prize.id === leftOverPrizeIds[i]))
+
+    }
+
+    prizesToBeRendered.forEach(prizeObj => {
+        let prizeComponent = new PrizeComponent(prizeObj)
+        prizeComponent.render(prizeList)
+    })
+
+}
