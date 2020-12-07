@@ -34,6 +34,12 @@ main {
   grid-template-rows: [row1-start] 48px [row1-end] auto [last-line];
   height: 100vh;
 }
+audio { 
+  width: 200px; 
+  box-shadow: 5px 5px 20px rgba(0,0, 0, 0.4);
+  border-radius: 90px;
+  transform: scale(1.05);
+}
 
 /* avatar */
 
