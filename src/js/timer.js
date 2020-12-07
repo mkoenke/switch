@@ -32,6 +32,7 @@ function getTimer (){
         }, 100)
     }
     startButton.addEventListener("click", () => {
+        document.getElementById('music').play()
         if (!activeTimer) {
             startTimer()
             activeTimer = true
