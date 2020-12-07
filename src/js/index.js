@@ -74,7 +74,7 @@ function handleNavBarClicks(event) {
     } else if (event.target.id === "memory" && currentUser || event.target.id === "sliding" && currentUser) {
         loadAndSetGame(event.target.id)
     } else if (event.target.id === "memory" && !currentUser || event.target.id === "sliding" && !currentUser || event.target.id === "prizes" && !currentUser) {
-        alert("Please Log In!")
+        alert("Please Sign Up or Log In!")
     } else if (event.target.id === "about") {
         setDisplay([gameTitle, timer, startButton, prizeDisplay, gameDisplay], "none")
         setDisplay([aboutDisplay], "block")
