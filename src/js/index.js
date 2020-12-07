@@ -1,4 +1,5 @@
-URL = "http://localhost:3000"
+// URL = "http://localhost:3000"
+URL = "https://arcane-garden-37304.herokuapp.com"
 
 //dom elements
 const navBar = document.querySelector(".topnav")
