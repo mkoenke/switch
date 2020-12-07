@@ -13,9 +13,6 @@ function endGame(condition) {
     postScore()
     setDisplay([gameTitle, timer, startButton, gameDisplay], "none")
     setDisplay([aboutDisplay], "block")
-    // timer.style.display = "none"
-    // gameDisplay.style.display = "none"
-    // aboutDisplay.style.display = "block"
     loadAbout()
 }
 
@@ -25,12 +22,6 @@ function loadAndSetGame(gameName) {
     currentGame = allGames.find(game => game.title === gameName)
     setDisplay([gameTitle, timer, startButton, gameDisplay], "block")
     setDisplay([prizeDisplay, aboutDisplay], "none")
-    // gameDisplay.style.display = "block"
-    // gameTitle.style.display = "block"
-    // timer.style.display = "block"
-    // startButton.style.display = "block"
-    // prizeDisplay.style.display = "none"
-    // aboutDisplay.style.display = "none"
     loadGame(gameName)
     if (gameName === "memory") {
         memoryJS()
