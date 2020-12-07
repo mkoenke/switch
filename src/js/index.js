@@ -26,6 +26,7 @@ const loginForm = modal.querySelector("form")
 const pinLogin = document.querySelector(".pin-login")
 const passwordMessageDiv = document.querySelector("#password-message")
 const redeemBtn = document.querySelector("#redeem")
+const prizeCollection = document.querySelector("#collection")
 
 //application state
 let allUsers

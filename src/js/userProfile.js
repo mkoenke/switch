@@ -18,9 +18,12 @@ const renderUserProfile = (userObj) => {
     })
     deleteButton.addEventListener("click", deleteUser)
     userPrizeList.innerHTML= ""
-    currentUser.prizes.forEach(renderBought)
-    
-    
+    if (currentUser.prizes === undefined || currentUser.prizes.length === 0){
+      return
+    } else {
+      setDisplay([prizeCollection], "block")
+      currentUser.prizes.forEach(renderBought)
+    }
 }
 
 function deleteUser(){
