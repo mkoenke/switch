@@ -174,7 +174,7 @@ function loadGame(gameName) {
     </div>
 </div>`
     } else if (gameName === "sliding") {
-        gameDisplay.innerHTML = `<div id="table" style="display: inline-block;">
+        gameDisplay.innerHTML = `<div id="table" style="display: block;">
         <div id="row1" style="display: table-row;">
             <div id="cell11" class="tile1" data-row="1" data-col="1"></div>
             <div id="cell12" class="tile2" data-row="1" data-col="2"></div>

@@ -4,8 +4,7 @@
     width: 120px;
     height: 120px;
     border: 1px solid white;
-    background: url(../images/imgonline-com-ua-resize-fXvc3tzFbxuuR.jpg);
-
+    background: url(../images/imgonline-com-ua-resize-fXvc3tzFbxuuR.jpg) whitesmoke; 
     cursor: pointer;
   }
   
