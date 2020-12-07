@@ -25,7 +25,7 @@ const cancelBtn = modal.querySelector(".cancelbtn")
 const loginForm = modal.querySelector("form")
 const pinLogin = document.querySelector(".pin-login")
 const passwordMessageDiv = document.querySelector("#password-message")
-
+const redeemBtn = document.querySelector("#redeem")
 
 //application state
 let allUsers
