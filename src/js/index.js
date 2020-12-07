@@ -25,6 +25,7 @@ const loginForm = modal.querySelector("form")
 const pinLogin = document.querySelector(".pin-login")
 const passwordMessageDiv = document.querySelector("#password-message")
 
+
 //application state
 let allUsers
 let currentUser = null
