@@ -4,6 +4,7 @@ function endGame(condition) {
     gameOver = true
     preventClick = true
     inGame = false
+    document.getElementById('music').pause()
     if (condition === "win") {
         alert("You win!")
     } else {
