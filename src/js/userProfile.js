@@ -9,6 +9,7 @@ const renderUserProfile = (userObj) => {
     username.textContent = `Username: ${userObj.username}`
     points.textContent = `Points: ${userObj.totalPoints}`
     avatar.src = userObj.avatar
+    editAvatar.addEventListener("click", editAvatarFn)
     redeemBtn.addEventListener("click", function(){
       setDisplay([gameTitle, timer, startButton, aboutDisplay, gameDisplay], "none")
       prizeList.innerHTML = " "
@@ -25,6 +26,45 @@ const renderUserProfile = (userObj) => {
       currentUser.prizes.forEach(renderBought)
     }
 }
+
+function editAvatarFn(event){
+  console.log(event.target)
+  const editForm = document.createElement("form")
+  editForm.id = "edit-form"
+  editForm.style.display = "block"
+  editForm.innerHTML = `<input type="text" name="avatar" placeholder="New Image Url" value="" required><br><br>
+  <button id="updatebBtn">Update</button>`
+  event.target.append(editForm)
+  editForm.addEventListener("submit", updateAvatarFetch)
+}
+
+
+function updateAvatarFetch(event){
+  event.preventDefault()
+  const updatedAvatarObj = {
+    avatar: event.target.avatar.value
+  }
+  console.log(updatedAvatarObj)
+  fetch(`${URL}/users/${currentUser.id}`, {
+    method: 'PATCH', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedAvatarObj),
+  })
+  .then(response => response.json())
+  .then(returnedUpdatedUser => {
+    event.target.remove()
+    renderUserProfile(returnedUpdatedUser)
+    console.log('Success:', returnedUpdatedUser);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+});
+
+}
+
+
 
 function deleteUser(){
   

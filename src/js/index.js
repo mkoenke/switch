@@ -27,6 +27,7 @@ const pinLogin = document.querySelector(".pin-login")
 const passwordMessageDiv = document.querySelector("#password-message")
 const redeemBtn = document.querySelector("#redeem")
 const prizeCollection = document.querySelector("#collection")
+const editAvatar = document.querySelector("#edit-avatar")
 
 //application state
 let allUsers
